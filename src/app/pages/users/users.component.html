@@ -1,0 +1,34 @@
+<h1>Users</h1>
+
+<p-table
+*ngIf="!loading"
+  [value]="products"
+  [(selection)]="selectedProducts"
+  styleClass="p-datatable-striped"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  dataKey="code"
+  (onRowSelect)="onRowSelect($event)"
+  (onRowUnselect)="onRowUnselect($event)"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+      <th>Usuario</th>
+      <th>Nombre completo</th>
+      <th>Correo</th>
+      <th>Estado</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr >
+      <td>
+        <p-tableCheckbox [value]="product" />
+      </td>
+      <td>{{ product.username }}</td>
+      <td>{{ product.nombre1 }} {{product.nombre2}} {{product.apellido1}} {{product.apellido2}}</td>
+      <td>{{ product.correo_electronico }}</td>
+      <td>{{ product.estado_usuario }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<skeleton-table *ngIf="loading" ></skeleton-table>

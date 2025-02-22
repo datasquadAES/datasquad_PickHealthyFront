@@ -1,0 +1,6 @@
+[build]
+command = "npm install --force && ng build --configuration=production"
+publish = "dist/yummi-host-app"
+
+[context.production.environment]
+NODE_ENV = "production"

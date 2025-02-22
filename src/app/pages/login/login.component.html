@@ -1,0 +1,30 @@
+<div class="login-container">
+  <h2>{{ showSignup ? 'Sign Up' : 'Login' }}</h2>
+
+  <!-- Login Form -->
+  <form *ngIf="!showSignup" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" required placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required placeholder="Enter your password">
+    </div>
+    <button type="submit" class="login-button">LOGIN</button>
+  </form>
+
+  <!-- Signup Component -->
+  <app-signup *ngIf="showSignup"></app-signup>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div class="links">
+    <a href="#" class="forgot-link" *ngIf="!showSignup">Forgot Username/Password?</a>
+    <a (click)="toggleSignup()" class="create-account-link">
+      {{ showSignup ? 'Back to Login' : 'Create your Account' }}
+    </a>
+  </div>
+</div>
