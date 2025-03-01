@@ -1,183 +1,191 @@
-<div class="signup-container">
-  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
-    <br />
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input pInputText id="username" formControlName="nombre1" />
-        <label for="username">Primer nombre</label>
-      </p-floatLabel>
-      <div
-        *ngIf="
-          signupForm.get('firstName')?.invalid &&
-          signupForm.get('firstName')?.touched
-        "
-        class="error-message"
-      >
-        <small *ngIf="signupForm.get('firstName')?.errors?.['required']"
-          >First Name is required</small
-        >
-        <small *ngIf="signupForm.get('firstName')?.errors?.['minlength']"
-          >First Name must be at least 2 characters</small
-        >
-      </div>
-    </div>
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input pInputText id="lastName" formControlName="apellido1" />
-        <label for="lastName">Apellido</label>
-      </p-floatLabel>
-      <div
-        *ngIf="
-          signupForm.get('lastName')?.invalid &&
-          signupForm.get('lastName')?.touched
-        "
-        class="error-message"
-      >
-        <small *ngIf="signupForm.get('lastName')?.errors?.['required']"
-          >Last Name is required</small
-        >
-        <small *ngIf="signupForm.get('lastName')?.errors?.['minlength']"
-          >Last Name must be at least 2 characters</small
-        >
-      </div>
-    </div>
+<div class="signup-main">
+  <p-card class="signup-container">
+    <h2 class="text-5xl">Crear cuenta</h2>
 
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input pInputText id="alias" formControlName="username" />
-        <label for="alias">Alias</label>
-      </p-floatLabel>
-    </div>
-
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input
-          pInputText
-          id="identificationNumber"
-          formControlName="numero_identificacion"
-        />
-        <label for="identificationNumber">Identificación</label>
-      </p-floatLabel>
-      <div
-        *ngIf="
-          signupForm.get('numero_identificacion')?.invalid &&
-          signupForm.get('numero_identificacion')?.touched
-        "
-        class="error-message"
-      >
-        <small
-          *ngIf="signupForm.get('numero_identificacion')?.errors?.['required']"
-          >Identification Number is required</small
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <br />
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input pInputText id="username" formControlName="nombre1" />
+          <label for="username">Primer nombre</label>
+        </p-floatLabel>
+        <div
+          *ngIf="
+            signupForm.get('firstName')?.invalid &&
+            signupForm.get('firstName')?.touched
+          "
+          class="error-message"
         >
-        <small
-          *ngIf="signupForm.get('numero_identificacion')?.errors?.['pattern']"
-          >Please enter a valid identification number</small
-        >
+          <small *ngIf="signupForm.get('firstName')?.errors?.['required']"
+            >First Name is required</small
+          >
+          <small *ngIf="signupForm.get('firstName')?.errors?.['minlength']"
+            >First Name must be at least 2 characters</small
+          >
+        </div>
       </div>
-    </div>
-
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input pInputText id="email" formControlName="correo_electronico" />
-        <label for="email">Correo</label>
-      </p-floatLabel>
-      <div
-        *ngIf="
-          signupForm.get('correo_electronico')?.invalid &&
-          signupForm.get('correo_electronico')?.touched
-        "
-        class="error-message"
-      >
-        <small
-          *ngIf="signupForm.get('correo_electronico')?.errors?.['required']"
-          >Email is required</small
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input pInputText id="lastName" formControlName="apellido1" />
+          <label for="lastName">Apellido</label>
+        </p-floatLabel>
+        <div
+          *ngIf="
+            signupForm.get('lastName')?.invalid &&
+            signupForm.get('lastName')?.touched
+          "
+          class="error-message"
         >
-        <small *ngIf="signupForm.get('correo_electronico')?.errors?.['email']"
-          >Please enter a valid email</small
-        >
+          <small *ngIf="signupForm.get('lastName')?.errors?.['required']"
+            >Last Name is required</small
+          >
+          <small *ngIf="signupForm.get('lastName')?.errors?.['minlength']"
+            >Last Name must be at least 2 characters</small
+          >
+        </div>
       </div>
-    </div>
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input pInputText id="telefonoo" formControlName="telefono" />
-        <label for="telefonoo">Telefono</label>
-      </p-floatLabel>
-    </div>
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input pInputText id="direccion" formControlName="direccion" />
-        <label for="direccion">Dirección</label>
-      </p-floatLabel>
-    </div>
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input
-          type="password"
-          pInputText
-          id="password"
-          formControlName="password"
-        />
-        <label for="password">Contraseña</label>
-      </p-floatLabel>
-      <div
-        *ngIf="
-          signupForm.get('password')?.invalid &&
-          signupForm.get('password')?.touched
-        "
-        class="error-message"
-      >
-        <small *ngIf="signupForm.get('password')?.errors?.['required']"
-          >Password is required</small
-        >
-        <small *ngIf="signupForm.get('password')?.errors?.['minlength']"
-          >Password must be at least 6 characters</small
-        >
-        <small *ngIf="signupForm.get('password')?.errors?.['pattern']"
-          >Password must contain at least one uppercase letter, one lowercase
-          letter, and one number</small
-        >
-      </div>
-    </div>
 
-    <div class="flex flex-column mb-5">
-      <p-floatLabel>
-        <input
-          type="password"
-          pInputText
-          id="confirmPassword"
-          formControlName="confirmPassword"
-        />
-        <label for="confirmPassword">Confirmar contraseña</label>
-      </p-floatLabel>
-      <div
-        *ngIf="
-          signupForm.get('confirmPassword')?.invalid &&
-          signupForm.get('confirmPassword')?.touched
-        "
-        class="error-message"
-      >
-        <small *ngIf="signupForm.get('confirmPassword')?.errors?.['required']"
-          >Confirm Password is required</small
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input pInputText id="alias" formControlName="username" />
+          <label for="alias">Alias</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input
+            pInputText
+            id="identificationNumber"
+            formControlName="numero_identificacion"
+          />
+          <label for="identificationNumber">Identificación</label>
+        </p-floatLabel>
+        <div
+          *ngIf="
+            signupForm.get('numero_identificacion')?.invalid &&
+            signupForm.get('numero_identificacion')?.touched
+          "
+          class="error-message"
         >
+          <small
+            *ngIf="signupForm.get('numero_identificacion')?.errors?.['required']"
+            >Identification Number is required</small
+          >
+          <small
+            *ngIf="signupForm.get('numero_identificacion')?.errors?.['pattern']"
+            >Please enter a valid identification number</small
+          >
+        </div>
       </div>
+
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input pInputText id="email" formControlName="correo_electronico" />
+          <label for="email">Correo</label>
+        </p-floatLabel>
+        <div
+          *ngIf="
+            signupForm.get('correo_electronico')?.invalid &&
+            signupForm.get('correo_electronico')?.touched
+          "
+          class="error-message"
+        >
+          <small
+            *ngIf="signupForm.get('correo_electronico')?.errors?.['required']"
+            >Email is required</small
+          >
+          <small *ngIf="signupForm.get('correo_electronico')?.errors?.['email']"
+            >Please enter a valid email</small
+          >
+        </div>
+      </div>
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input pInputText id="telefonoo" formControlName="telefono" />
+          <label for="telefonoo">Telefono</label>
+        </p-floatLabel>
+      </div>
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input pInputText id="direccion" formControlName="direccion" />
+          <label for="direccion">Dirección</label>
+        </p-floatLabel>
+      </div>
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input
+            type="password"
+            pInputText
+            id="password"
+            formControlName="password"
+          />
+          <label for="password">Contraseña</label>
+        </p-floatLabel>
+        <div
+          *ngIf="
+            signupForm.get('password')?.invalid &&
+            signupForm.get('password')?.touched
+          "
+          class="error-message"
+        >
+          <small *ngIf="signupForm.get('password')?.errors?.['required']"
+            >Password is required</small
+          >
+          <small *ngIf="signupForm.get('password')?.errors?.['minlength']"
+            >Password must be at least 6 characters</small
+          >
+          <small *ngIf="signupForm.get('password')?.errors?.['pattern']"
+            >Password must contain at least one uppercase letter, one lowercase
+            letter, and one number</small
+          >
+        </div>
+      </div>
+
+      <div class="flex flex-column mb-5">
+        <p-floatLabel>
+          <input
+            type="password"
+            pInputText
+            id="confirmPassword"
+            formControlName="confirmPassword"
+          />
+          <label for="confirmPassword">Confirmar contraseña</label>
+        </p-floatLabel>
+        <div
+          *ngIf="
+            signupForm.get('confirmPassword')?.invalid &&
+            signupForm.get('confirmPassword')?.touched
+          "
+          class="error-message"
+        >
+          <small *ngIf="signupForm.get('confirmPassword')?.errors?.['required']"
+            >Confirm Password is required</small
+          >
+        </div>
+        <div
+          *ngIf="signupForm.errors?.['passwordMismatch'] && signupForm.get('confirmPassword')?.touched"
+          class="error-message"
+        >
+          <small>Passwords do not match</small>
+        </div>
+      </div>
+
       <div
-        *ngIf="signupForm.errors?.['passwordMismatch'] && signupForm.get('confirmPassword')?.touched"
-        class="error-message"
+        class="flex flex-wrap justify-content-between align-items-center gap-2"
       >
-        <small>Passwords do not match</small>
+        <p-button
+          type="submit"
+          [disabled]="!signupForm.valid"
+          severity="success"
+        >
+          Registrarse
+        </p-button>
+
+        <span>
+          Ya tienes una cuenta? <a routerLink="/login"> Iniciar sesión</a>
+        </span>
       </div>
-    </div>
-
-    <div
-      class="flex flex-wrap justify-content-between align-items-center gap-2"
-    >
-      <p-button type="submit" [disabled]="!signupForm.valid" severity="success">
-        Registrarse
-      </p-button>
-
-      <span>
-        Ya tienes una cuenta? <a routerLink="/login"> Iniciar sesión</a>
-      </span>
-    </div>
-  </form>
+    </form>
+  </p-card>
 </div>

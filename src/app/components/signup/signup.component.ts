@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/services/toast/toast.service';
 import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private userServices: UsersService,
     private router: Router,
+    private toastService: ToastService,
+
   ) {}
 
 
@@ -59,8 +62,11 @@ export class SignupComponent implements OnInit {
         next: (data) => {
           sessionStorage.setItem('user', JSON.stringify(data));
           this.router.navigate(['/home']);
+          this.toastService.show('success', 'Usuario añadido');
         },
         error: (err) => {
+          this.toastService.show('error', err.error.message);
+
           alert(err.error.message);
         },
       });

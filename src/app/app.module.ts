@@ -38,6 +38,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { StepperModule } from 'primeng/stepper';
 import { ChipModule } from 'primeng/chip';
+import { ToastModule } from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { ChipModule } from 'primeng/chip';
     DataViewModule,
     DropdownModule,
     StepperModule,
-    ChipModule
+    ChipModule,
+    ToastModule,
+    RippleModule
 ],
   providers: [
     MessageService,

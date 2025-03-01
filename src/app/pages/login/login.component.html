@@ -1,6 +1,6 @@
 <div class="login-main">
   <p-card class="login-container">
-    <h2 class="text-5xl">{{ showSignup ? "Crear cuenta" : "Iniciar sesión" }}</h2>
+    <h2 class="text-5xl">Iniciar sesión</h2>
 
     <!-- Login Form -->
     <form *ngIf="!showSignup" (ngSubmit)="onSubmit()">
@@ -50,13 +50,6 @@
         />
       </div>
     </form>
-
-    <!-- Signup Component -->
-    <app-signup
-      *ngIf="showSignup === true"
-    >
-    </app-signup>
-
     <div *ngIf="errorMessage && !loading" class="error-message">
       {{ errorMessage }}
     </div>
