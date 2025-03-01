@@ -13,8 +13,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cli": "^16.2.14",
-    "@angular/compiler-cli": "^16.2.0",
+    "@angular/cli": "^17.3.12",
+    "@angular/compiler-cli": "^17.3.12",
     "@angular-architects/module-federation": "^16.0.4",
     "@angular/animations": "^17.3.12",
     "@angular/common": "^17.3.12",
