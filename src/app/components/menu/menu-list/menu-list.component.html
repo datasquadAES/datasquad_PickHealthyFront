@@ -1,0 +1,44 @@
+<div *ngIf="loading" class="menu-list__cont" >
+  <p-progressSpinner  ariaLabel="loading" animationDuration="5s" />
+</div>
+<p-carousel
+    *ngIf="!loading"
+    [value]="products"
+    [numVisible]="4"
+    [numScroll]="1"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item" class="m-0 p-0" >
+            <div
+              class="border-dashed hover:border-green-200 border-round-md m-2 p-3 max-h-full"
+            >
+                <div class="mb-3">
+                    <div class="relative mx-auto">
+                        <img
+                            src="{{ product.imagen_url }}"
+                            class="w-full border-round-md" />
+                        <!-- <p-tag
+                            [value]="product.inventoryStatus"
+                            [severity]="getSeverity(product.inventoryStatus)"
+                            class="absolute"
+                            [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" /> -->
+                    </div>
+                </div>
+                <div class="mb-3 font-medium">
+                    {{ product.nombre }}
+                </div>
+                <div class="mb-3 text-xs text-500">
+                    {{ product.descripcion }}
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                    <div class="mt-0 font-semibold text-md">
+                        {{'$'}} {{product.precio | currency }}
+                    </div>
+                    <div class="flex align-items-end">
+                        <!-- <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" /> -->
+                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" (onClick)="addToCart(product)"  />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+</p-carousel>

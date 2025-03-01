@@ -1,33 +1,42 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsersService } from './users/users.service';
+import { CartService} from './cart/cart.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-
-
-    private readonly validEmail = 'admon@yummi.com';
-    private readonly validPassword = 'yummi123';
-
     private isAuthenticated = false;
 
-    constructor(private router: Router) {}
+    constructor(
+      private router: Router,
+      private usersService: UsersService,
+      private cartService: CartService
+    ) {}
 
-    login(email: string, password: string): boolean {
-      if (email === this.validEmail && password === this.validPassword) {
+    login(username: string, password: string) {
+      let isLoggedIn = false;
+      this.usersService.getUserByCredentials(username, password).subscribe((user: any) => {
+
+        if (user && user.username === username && user.password === password) {
+        sessionStorage.setItem('user', JSON.stringify(user));
         this.isAuthenticated = true;
-        this.router.navigate(['/dashboard']);
-        return true;
-      } else {
+        isLoggedIn = true;
+        this.router.navigate(['/home']);
+        } else {
         this.isAuthenticated = false;
-        return false;
-      }
+        isLoggedIn = false;
+        }
+      });
+
+      return isLoggedIn;
     }
 
     logout(): void {
       this.isAuthenticated = false;
+      sessionStorage.removeItem('user');
       this.router.navigate(['/login']);
     }
 
@@ -36,11 +45,7 @@ export class AuthService {
     }
 
     register(email: string, password: string): boolean {
-      // In a real application, this would typically involve an API call
-      // For this example, we'll just simulate registration
       if (email && password && email.includes('@')) {
-        // Basic validation
-        console.log('User registered:', email);
         return true;
       }
       return false;

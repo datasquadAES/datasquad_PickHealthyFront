@@ -1,5 +1,12 @@
 <div class="dashboard-container">
-  <h2>Welcome to the Dashboard</h2>
-  <p>You are logged in!</p>
-  <button (click)="logout()">Logout</button>
+  <h1>Bienvenido {{user.nombre1}}!</h1>
+  <p>Que vamos a comer?</p>
+
+
+  <h2>Recomendaciones</h2>
+  <div>
+    <menu-list></menu-list>
+  </div>
 </div>
+
+<cart-sidebar *ngIf="user"  ></cart-sidebar>

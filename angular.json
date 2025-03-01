@@ -30,8 +30,9 @@
 							"src/assets"
 						],
 						"styles": [
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+
 							"src/styles.scss"
 						],
 						"scripts": [],
@@ -40,6 +41,12 @@
 					},
 					"configurations": {
 						"production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "PickHealthyFront/src/environments/environment.prod.ts"
+                }
+              ],
 							"budgets": [
 								{
 									"type": "initial",
@@ -114,6 +121,6 @@
 		}
   },
   "cli": {
-    "analytics": false
+    "analytics": "fe523808-8521-451d-83cf-0041b798be88"
   }
 }

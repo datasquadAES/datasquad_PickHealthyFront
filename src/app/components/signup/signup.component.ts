@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users/users.service';
 
@@ -17,24 +17,24 @@ export class SignupComponent implements OnInit {
     private router: Router,
   ) {}
 
+
   ngOnInit() {
-    this.signupForm = this.fb.group(
-      {
-        nombre1: ['', Validators.required],
-        nombre2: [''],
-        apellido1: ['', Validators.required],
-        apellido2: [''],
-        username: ['', Validators.required],
-        numero_identificacion: ['', Validators.required],
-        id_tipo_identificacion: ['1', Validators.required], // Default value
-        id_tipo_usuario: ['1', Validators.required], // Default value
-        correo_electronico: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', Validators.required],
-        estado_usuario: ['activo'] // Default value
-      },
-      { validators: this.passwordMatchValidator }
-    );
+    this.signupForm = this.fb.group({
+      nombre1: new FormControl('', Validators.required),
+      nombre2: new FormControl(''),
+      apellido1: new FormControl('', Validators.required),
+      apellido2: new FormControl(''),
+      telefono: new FormControl('', Validators.required),
+      direccion: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      numero_identificacion: new FormControl('', Validators.required),
+      id_tipo_identificacion: new FormControl('1', Validators.required), // Default value
+      id_tipo_usuario: new FormControl('1', Validators.required), // Default value
+      correo_electronico: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', Validators.required),
+      estado_usuario: new FormControl('activo') // Default value
+    }, { validators: this.passwordMatchValidator });
   }
 
   passwordMatchValidator(g: FormGroup) {
@@ -57,7 +57,8 @@ export class SignupComponent implements OnInit {
 
       this.userServices.createUser(userData).subscribe({
         next: (data) => {
-          this.router.navigate(['/dashboard']);
+          sessionStorage.setItem('user', JSON.stringify(data));
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           alert(err.error.message);

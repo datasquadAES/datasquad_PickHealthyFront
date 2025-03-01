@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MenuItem } from 'primeng/api/menuitem';
 import { NavigationEnd, Router } from '@angular/router';
+import { CartService } from './services/cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,12 @@ export class AppComponent {
 
     constructor(
       private router: Router,
-      private authService: AuthService
+      private authService: AuthService,
+      private cartService: CartService
     ) {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          this.isLoginRoute = event.url === '/login';
+          this.isLoginRoute = event.url === '/login' || event.url === '/signup';
         }
       });
     }
@@ -29,13 +31,13 @@ export class AppComponent {
           {
               label: 'Home',
               icon: 'pi pi-home',
-              route: '/dashboard'
+              route: '/home'
           },
-          {
-              label: 'Users',
-              icon: 'pi pi-users',
-              route: 'users'
-          },
+          // {
+          //     label: 'Users',
+          //     icon: 'pi pi-users',
+          //     route: 'users'
+          // },
           // {
           //     label: 'Projects',
           //     icon: 'pi pi-search',
@@ -77,6 +79,10 @@ export class AppComponent {
 
     logout() {
       this.authService.logout();
+    }
+
+    openCart(){
+      this.cartService.showCart();
     }
 
 

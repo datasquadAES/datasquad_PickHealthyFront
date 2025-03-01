@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -23,11 +24,9 @@ const routes: Routes = [
       .then((m) => m.OrdersModule),
   },
     { path: 'login', component: LoginComponent },
-    { path: 'users', component: UsersComponent },
-    { path: 'signup', component: LoginComponent },
-    { path: 'dashboard', component: HomeComponent,
-      // canActivate: [AuthGuard]
-    },
+    { path: 'signup', component: SignupComponent },
+    { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login' },
 

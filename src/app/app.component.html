@@ -27,7 +27,14 @@
     </ng-template>
 
     <ng-template pTemplate="end">
-      <div class="flex align-items-center gap-2">
+      <div class="flex align-items-end gap-1">
+        <p-button
+          icon="pi pi-shopping-cart"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="openCart()"
+
+        />
         <p-button
           icon="pi pi-sign-out"
           [rounded]="true"
