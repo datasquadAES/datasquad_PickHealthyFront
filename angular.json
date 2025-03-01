@@ -30,9 +30,8 @@
 							"src/assets"
 						],
 						"styles": [
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css",
-
+							"node_modules/primeng/resources/primeng.min.css",
+							"node_modules/primeicons/primeicons.css",
 							"src/styles.scss"
 						],
 						"scripts": [],
@@ -41,12 +40,12 @@
 					},
 					"configurations": {
 						"production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "PickHealthyFront/src/environments/environment.prod.ts"
-                }
-              ],
+							"fileReplacements": [
+								{
+									"replace": "src/app/environments/environment.ts",
+									"with": "/src/app/environments/environment.prod.ts"
+								}
+							],
 							"budgets": [
 								{
 									"type": "initial",
@@ -119,8 +118,8 @@
 				}
 			}
 		}
-  },
-  "cli": {
-    "analytics": "fe523808-8521-451d-83cf-0041b798be88"
-  }
+	},
+	"cli": {
+		"analytics": "fe523808-8521-451d-83cf-0041b798be88"
+	}
 }
