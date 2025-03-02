@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +11,16 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 })
 export class LoginComponent implements OnInit{
 
-  email: string = '';
-  password: string = '';
   errorMessage: string = ' ';
   showSignup: boolean = false;
   loading: boolean = false;
+  loginForm !: FormGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private toastService: ToastService,
+    private fb: FormBuilder,
 
   ) {
     this.showSignup = this.router.url === '/signup';
@@ -27,7 +28,10 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // sessionStorage.removeItem('user');
+    this.loginForm = this.fb.group({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
+    })
 
   }
 
@@ -47,12 +51,25 @@ export class LoginComponent implements OnInit{
 
   async onSubmit() {
     this.loading = true;
-    const isLoggedIn = await this.authService.login(this.email, this.password);
 
-    if (!isLoggedIn) {
-      this.toastService.show('error', 'Inicio fallido', 'Intente nuevamente');
-      this.loading = false
-      this.errorMessage = 'Inicio fallido. Intente nuevamente.';
+    try {
+      const user = this.loginForm.value
+      const isLoggedIn = await this.authService.login(user.username, user.password);
+
+      if (!isLoggedIn) {
+        this.errorMessage = 'Inicio fallido. Intente nuevamente.';
+        setTimeout(() => {
+          this.errorMessage = '';
+
+        }, 4000);
+      }
+
+    } catch (error) {
+      this.toastService.show('error', 'Error en el servidor', 'Intente nuevamente');
+
+    } finally {
+      this.loading = false;
     }
+
   }
 }

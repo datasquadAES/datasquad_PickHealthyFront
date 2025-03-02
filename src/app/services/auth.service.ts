@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UsersService } from './users/users.service';
 import { CartService} from './cart/cart.service';
 import { ToastService } from './toast/toast.service';
+import { catchError, firstValueFrom, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,24 +19,34 @@ export class AuthService {
       private toastService: ToastService
     ) {}
 
-    login(username: string, password: string) {
-      let isLoggedIn = false;
-      this.usersService.getUserByCredentials(username, password).subscribe((user: any) => {
+    login(username: string, password: string): Promise<boolean> {
+      return firstValueFrom(
+        this.usersService.getUserByCredentials(username, password).pipe(
+          map((user: any) => {
+            // Si el usuario existe y no está bloqueado
+            sessionStorage.setItem('user', JSON.stringify(user));
+            this.isAuthenticated = true;
+            this.router.navigate(['/home']);
+            return true;
+          }),
+          catchError((error) => {
+            console.log(error);
 
-        if (user && user.username === username && user.password === password) {
-        sessionStorage.setItem('user', JSON.stringify(user));
-        this.isAuthenticated = true;
-        isLoggedIn = true;
-        this.router.navigate(['/home']);
-        } else {
-          this.toastService.show('error', 'Usuario no encontrado', 'Intente nuevamente');
-        this.isAuthenticated = false;
-        isLoggedIn = false;
-        }
-      });
+            if (error.status === 403) {
+              this.toastService.show('error', 'Error', error.error.error);
+            } else if (error.status === 401 || error.status === 404) {
+              this.toastService.show('error', 'Inicio fallido', 'Usuario o contraseña incorrectos.');
+            } else {
+              this.toastService.show('error', 'Error en la solicitud', 'Intente nuevamente.');
+            }
 
-      return isLoggedIn;
+            this.isAuthenticated = false;
+            return of(false);
+          })
+        )
+      );
     }
+
 
     logout(): void {
       this.isAuthenticated = false;

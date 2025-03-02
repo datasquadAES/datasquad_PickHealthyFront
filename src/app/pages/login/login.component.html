@@ -3,7 +3,7 @@
     <h2 class="text-5xl">Iniciar sesión</h2>
 
     <!-- Login Form -->
-    <form *ngIf="!showSignup" (ngSubmit)="onSubmit()">
+    <form *ngIf="!showSignup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="flex flex-column gap-2">
         <label for="username">Usuario</label>
         <p-iconField iconPosition="right">
@@ -11,9 +11,9 @@
           <input
             type="text"
             pInputText
-            placeholder="Enter your email"
+            placeholder="Enter your username"
             name="email"
-            [(ngModel)]="email"
+            formControlName="username"
             required
           />
         </p-iconField>
@@ -29,7 +29,7 @@
             name="password"
             pInputText
             placeholder="Enter your password"
-            [(ngModel)]="password"
+            formControlName="password"
             required
           />
         </p-iconField>
@@ -39,7 +39,7 @@
         <p-button
           type="submit"
           severity="success"
-          [disabled]="loading"
+          [disabled]="loading || loginForm.invalid"
           >Iniciar sesión</p-button
         >
         <p-button

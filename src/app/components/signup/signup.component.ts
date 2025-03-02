@@ -27,8 +27,8 @@ export class SignupComponent implements OnInit {
       nombre2: new FormControl(''),
       apellido1: new FormControl('', Validators.required),
       apellido2: new FormControl(''),
-      telefono: new FormControl('', Validators.required),
-      direccion: new FormControl('', Validators.required),
+      telefono: new FormControl(''),
+      direccion: new FormControl(''),
       username: new FormControl('', Validators.required),
       numero_identificacion: new FormControl('', Validators.required),
       id_tipo_identificacion: new FormControl('1', Validators.required), // Default value
@@ -65,9 +65,8 @@ export class SignupComponent implements OnInit {
           this.toastService.show('success', 'Usuario añadido');
         },
         error: (err) => {
-          this.toastService.show('error', err.error.message);
+          this.toastService.show('error', 'Error', err.error.error);
 
-          alert(err.error.message);
         },
       });
     }
