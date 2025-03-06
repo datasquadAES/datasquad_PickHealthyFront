@@ -40,6 +40,7 @@ import { StepperModule } from 'primeng/stepper';
 import { ChipModule } from 'primeng/chip';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { RippleModule } from 'primeng/ripple';
     StepperModule,
     ChipModule,
     ToastModule,
-    RippleModule
+    RippleModule,
+    RadioButtonModule
 ],
   providers: [
     MessageService,
