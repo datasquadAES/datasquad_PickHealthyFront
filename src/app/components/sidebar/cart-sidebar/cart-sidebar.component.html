@@ -91,7 +91,7 @@
               severity="secondary"
               (onClick)="prevCallback.emit()"
             />
-            <p-button label="Siguiente" (onClick)="nextCallback.emit()" />
+            <p-button label="Siguiente" (onClick)="nextCallback.emit()" [disabled]="!selectedCity" />
           </div>
         </ng-template>
       </p-stepperPanel>
@@ -150,7 +150,7 @@
               severity="secondary"
               (onClick)="prevCallback.emit()"
             />
-            <p-button label="Confirmar" (onClick)="confirmOrder()" />
+            <p-button label="Confirmar" (onClick)="confirmOrder()" [loading]="loading"  />
           </div>
         </ng-template>
       </p-stepperPanel>

@@ -15,7 +15,7 @@ import { TableComponent } from './components/skeletons/table/table.component';
 import { MenuListComponent } from "./components/menu/menu-list/menu-list.component";
 import { CartSidebarComponent } from "./components/sidebar/cart-sidebar/cart-sidebar.component";
 import { CartItemComponent } from './components/sidebar/cart-item/cart-item.component';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
@@ -52,7 +52,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     TableComponent,
     MenuListComponent,
     CartSidebarComponent,
-    CartItemComponent
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,10 +83,12 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ChipModule,
     ToastModule,
     RippleModule,
-    RadioButtonModule
+    RadioButtonModule,
+
 ],
   providers: [
     MessageService,
+    provideAnimationsAsync()
 
   ],
   bootstrap: [AppComponent]

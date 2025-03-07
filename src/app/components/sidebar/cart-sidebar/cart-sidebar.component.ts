@@ -5,6 +5,8 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { firstValueFrom, Subscription, Observable } from 'rxjs';
 import { PagoService } from 'src/app/services/pago/pago.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
+
 
 @Component({
   selector: 'cart-sidebar',
@@ -24,6 +26,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
   personalDataForm!: FormGroup;
   user: any;
   total: any;
+  loading : boolean = false;
 
   private storageSubscription: Subscription;
 
@@ -32,7 +35,8 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
     private cartService: CartService,
     private userService: UsersService,
     private pedidoService: PedidoService,
-    private PagoService: PagoService
+    private PagoService: PagoService,
+    private toastService : ToastService
   ) {
     this.storageSubscription = new Subscription();
   }
@@ -59,6 +63,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
 
     this.userService.currentUser.subscribe((user: any) => {
       let currentUser:any = JSON.parse(sessionStorage.getItem('user') || '{}');
+      this.user = currentUser;
       this.setUserData(currentUser.direccion, currentUser.telefono, '');
     })
 
@@ -103,6 +108,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async confirmOrder() {
+    this.loading = true
     try {
       const pedido = await this.createOrder();
       if (pedido) {
@@ -126,7 +132,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
     let pedido;
 
     const orderData = {
-      usuario_id: this.user.id,
+      usuario_id: this.user?.id,
       fecha: new Date().toISOString(),
       estado: 'en preparación',
     };
@@ -155,7 +161,9 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
         this.cartService.clearCart();
         this.cartService.hideCart();
         this.setUserData('', '', '');
-        alert('Pedido realizado con éxito');
+        this.loading = false
+
+        this.toastService.show('success', 'Muy bien!', 'Pedido realizado con éxito');
       }
     });
   }
