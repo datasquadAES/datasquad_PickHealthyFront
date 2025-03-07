@@ -7,3 +7,69 @@
   height: 50dvh;
 
 }
+
+#search__container{
+  width: 40%;
+}
+
+
+.custom-carousel {
+  max-width: 800px; /* Ajusta según tu diseño */
+  margin: auto;
+}
+
+.carousel-item {
+  width: 200px; /* Ancho fijo de cada ítem */
+  height: 300px; /* Alto fijo de cada ítem */
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  align-items: center;
+}
+
+.product-card {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: white;
+  text-align: center;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+
+
+  &:hover{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.image-container {
+  width: 100%;
+  height: 150px; /* Altura fija para imágenes */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.product-image {
+  max-width: 100%;
+  border-radius: 20px;
+  max-height: 100%;
+}
+
+
+.p-carousel-items-content{
+  display: flex;
+  justify-content: center;
+}
+
+
+#products_cont{
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

@@ -1,44 +1,80 @@
 <div *ngIf="loading" class="menu-list__cont" >
   <p-progressSpinner  ariaLabel="loading" animationDuration="5s" />
 </div>
-<p-carousel
-    *ngIf="!loading"
-    [value]="products"
+<ng-container class="flex flex-column justify-content-start" *ngIf="!loading" >
+  <div id="search__container" class="flex mb-3" >
+    <p-inputGroup >
+      <input type="text" pInputText [(ngModel)]="searchText" (input)="filterProducts()"   placeholder="Busca tu plato favorito, por nombre o descripción" />
+      <!-- <p-button icon="pi pi-search" severity="success" (onClick)="searchProduct($event)" ></p-button> -->
+    </p-inputGroup>
+
+  </div>
+  <ng-container *ngIf="filteredProducts.length > 0" class="max-h-10" >
+    <div id="products_cont" >
+
+      <div *ngFor="let product of filteredProducts">
+        <div>
+          <div class="carousel-item">
+            <div class="product-card">
+              <div class="image-container">
+                <img src="{{ product.imagen_url }}" class="product-image" />
+              </div>
+              <div class="mb-3 font-medium">
+                {{ product.nombre }}
+              </div>
+              <div class="mb-3 text-xs text-500">
+                {{ product.descripcion }}
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <div class="mt-0 font-semibold text-md">
+                  {{ product.precio | currency }}
+                </div>
+                <div class="flex align-items-end">
+                  <p-button icon="pi pi-shopping-cart" styleClass="ml-2" (onClick)="addToCart(product)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- <p-carousel
+    [value]="filteredProducts"
     [numVisible]="4"
     [numScroll]="1"
     [circular]="true"
-    [responsiveOptions]="responsiveOptions">
-        <ng-template let-product pTemplate="item" class="m-0 p-0" >
-            <div
-              class="border-dashed hover:border-green-200 border-round-md m-2 p-3 max-h-full"
-            >
-                <div class="mb-3">
-                    <div class="relative mx-auto">
-                        <img
-                            src="{{ product.imagen_url }}"
-                            class="w-full border-round-md" />
-                        <!-- <p-tag
-                            [value]="product.inventoryStatus"
-                            [severity]="getSeverity(product.inventoryStatus)"
-                            class="absolute"
-                            [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" /> -->
-                    </div>
-                </div>
-                <div class="mb-3 font-medium">
-                    {{ product.nombre }}
-                </div>
-                <div class="mb-3 text-xs text-500">
-                    {{ product.descripcion }}
-                </div>
-                <div class="flex justify-content-between align-items-center">
-                    <div class="mt-0 font-semibold text-md">
-                        {{product.precio | currency }}
-                    </div>
-                    <div class="flex align-items-end">
-                        <!-- <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" /> -->
-                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" (onClick)="addToCart(product)"  />
-                    </div>
-                </div>
+    [responsiveOptions]="responsiveOptions"
+    class="custom-carousel"
+  >
+    <ng-template let-product pTemplate="item">
+      <div class="carousel-item">
+        <div class="product-card">
+          <div class="image-container">
+            <img src="{{ product.imagen_url }}" class="product-image" />
+          </div>
+          <div class="mb-3 font-medium">
+            {{ product.nombre }}
+          </div>
+          <div class="mb-3 text-xs text-500">
+            {{ product.descripcion }}
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <div class="mt-0 font-semibold text-md">
+              {{ product.precio | currency }}
             </div>
-        </ng-template>
-</p-carousel>
+            <div class="flex align-items-end">
+              <p-button icon="pi pi-shopping-cart" styleClass="ml-2" (onClick)="addToCart(product)" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel> -->
+
+
+  </ng-container>
+  <ng-container class="flex justify-content-center align-items-center h-300 " *ngIf="filteredProducts.length === 0">
+    No hay coincidencias
+  </ng-container>
+</ng-container>

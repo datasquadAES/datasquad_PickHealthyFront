@@ -12,7 +12,8 @@ export class MenuListComponent implements OnInit {
   products: any[] = []
   loading: boolean = false;
   responsiveOptions: any[] | undefined;
-
+  searchText: string = '';
+  filteredProducts : any[]  = [];
   constructor(
     private menuService: MenuService,
     private cartService: CartService
@@ -47,12 +48,26 @@ export class MenuListComponent implements OnInit {
 
       this.products = menus;
       this.loading = false
+      this.filteredProducts = menus
 
     });
   }
 
+  private filterTimeout: any;
 
 
+  filterProducts() {
+    if (this.filterTimeout) {
+      clearTimeout(this.filterTimeout);
+    }
+
+    this.filterTimeout = setTimeout(() => {
+      this.filteredProducts = this.products?.filter(product =>
+        product.nombre.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        product.descripcion.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }, 100); // Espera 300ms antes de filtrar
+  }
 
 
   getSeverity(status: string) {
@@ -70,7 +85,4 @@ export class MenuListComponent implements OnInit {
   addToCart(product: any){
     this.cartService.addToCart(product);
   }
-
-
-
 }
