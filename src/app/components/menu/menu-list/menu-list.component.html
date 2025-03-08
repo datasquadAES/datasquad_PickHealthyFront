@@ -18,19 +18,19 @@
     <div id="products_cont">
       <div *ngFor="let product of filteredProducts; let i = index">
         <div>
-          <div class="carousel-item" id="plato_{{i}}">
-            <div class="product-card" id="plato_tarjeta_{{i}}">
-              <div class="image-container" id="plato_div_img_{{i}}">
+          <div class="carousel-item plato_{{i}}">
+            <div class="product-card plato_tarjeta_{{i}}">
+              <div class="image-container plato_div_img_{{i}}">
                 <img src="{{ product.imagen_url }}" class="product-image" />
               </div>
-              <div class="mb-3 font-medium" id="plato_nombre_{{i}}">
+              <div class="mb-3 font-medium plato_nombre_{{i}}">
                 {{ product.nombre }}
               </div>
-              <div class="mb-3 text-xs text-500" id="plato_descripcion_{{i}}">
+              <div class="mb-3 text-xs text-500 plato_descripcion_{{i}}">
                 {{ product.descripcion }}
               </div>
               <div class="flex justify-content-between align-items-center">
-                <div class="mt-0 font-semibold text-md" id="plato_precio_{{i}}">
+                <div class="mt-0 font-semibold text-md plato_precio_{{i}}">
                   {{ product.precio | currency }}
                 </div>
                 <div class="flex align-items-end">
@@ -39,14 +39,14 @@
                     icon="pi pi-shopping-cart"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
-                    id="carro_vacio_{{i}}"
+                    class="carro_vacio_{{i}}"
                   />
                   <p-button
                     *ngIf="product.units > 0"
                     [label]="product.units.toString()"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
-                    id="carro_no_vacio_{{i}}"
+                    class="carro_no_vacio_{{i}}"
                   ></p-button>
 
 
