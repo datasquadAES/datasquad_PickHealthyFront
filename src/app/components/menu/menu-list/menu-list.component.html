@@ -39,12 +39,14 @@
                     icon="pi pi-shopping-cart"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
+                    class="carro_vacio_{{i}}"
                   />
                   <p-button
                     *ngIf="product.units > 0"
                     [label]="product.units.toString()"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
+                    class="carro_no_vacio_{{i}}"
                   ></p-button>
 
 
