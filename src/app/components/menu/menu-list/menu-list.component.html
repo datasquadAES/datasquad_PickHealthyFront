@@ -23,14 +23,14 @@
               <div class="image-container">
                 <img src="{{ product.imagen_url }}" class="product-image" />
               </div>
-              <div class="mb-3 font-medium">
+              <div class="mb-3 font-medium plato_nombre_{{i}}">
                 {{ product.nombre }}
               </div>
-              <div class="mb-3 text-xs text-500">
+              <div class="mb-3 text-xs text-500 plato_descripcion_{{i}}">
                 {{ product.descripcion }}
               </div>
               <div class="flex justify-content-between align-items-center">
-                <div class="mt-0 font-semibold text-md">
+                <div class="mt-0 font-semibold text-md plato_precio_{{i}}">
                   {{ product.precio | currency }}
                 </div>
                 <div class="flex align-items-end">
