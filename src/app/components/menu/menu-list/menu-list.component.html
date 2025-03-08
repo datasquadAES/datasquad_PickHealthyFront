@@ -1,18 +1,22 @@
-<div *ngIf="loading" class="menu-list__cont" >
-  <p-progressSpinner  ariaLabel="loading" animationDuration="5s" />
+<div *ngIf="loading" class="menu-list__cont">
+  <p-progressSpinner ariaLabel="loading" animationDuration="5s" />
 </div>
-<ng-container class="flex flex-column justify-content-start" *ngIf="!loading" >
-  <div id="search__container" class="flex mb-3" >
-    <p-inputGroup >
-      <input type="text" pInputText [(ngModel)]="searchText" (input)="filterProducts()"   placeholder="Busca tu plato favorito, por nombre o descripción" />
+<ng-container class="flex flex-column justify-content-start" *ngIf="!loading">
+  <div id="search__container" class="flex mb-3">
+    <p-inputGroup>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="searchText"
+        (input)="filterProducts()"
+        placeholder="Busca tu plato favorito, por nombre o descripción"
+      />
       <!-- <p-button icon="pi pi-search" severity="success" (onClick)="searchProduct($event)" ></p-button> -->
     </p-inputGroup>
-
   </div>
-  <ng-container *ngIf="filteredProducts.length > 0" class="max-h-10" >
-    <div id="products_cont" >
-
-      <div *ngFor="let product of filteredProducts">
+  <ng-container *ngIf="filteredProducts.length > 0" class="max-h-10">
+    <div id="products_cont">
+      <div *ngFor="let product of filteredProducts; let i = index">
         <div>
           <div class="carousel-item">
             <div class="product-card">
@@ -30,13 +34,25 @@
                   {{ product.precio | currency }}
                 </div>
                 <div class="flex align-items-end">
-                  <p-button icon="pi pi-shopping-cart" styleClass="ml-2" (onClick)="addToCart(product)" />
+                  <p-button
+                    *ngIf="!product.units"
+                    icon="pi pi-shopping-cart"
+                    styleClass="ml-2"
+                    (onClick)="addToCart(product)"
+                  />
+                  <p-button
+                    *ngIf="product.units > 0"
+                    [label]="product.units.toString()"
+                    styleClass="ml-2"
+                    (onClick)="addToCart(product)"
+                  ></p-button>
+
+
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <!-- <p-carousel
@@ -71,10 +87,11 @@
       </div>
     </ng-template>
   </p-carousel> -->
-
-
   </ng-container>
-  <ng-container class="flex justify-content-center align-items-center h-300 " *ngIf="filteredProducts.length === 0">
+  <ng-container
+    class="flex justify-content-center align-items-center h-300"
+    *ngIf="filteredProducts.length === 0"
+  >
     No hay coincidencias
   </ng-container>
 </ng-container>
