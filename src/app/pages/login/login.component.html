@@ -15,6 +15,7 @@
             name="email"
             formControlName="username"
             required
+            [attr.enjisst]="'login__in__username'"
           />
         </p-iconField>
       </div>
@@ -31,6 +32,7 @@
             placeholder="Enter your password"
             formControlName="password"
             required
+            [attr.enjisst]="'login__in__password'"
           />
         </p-iconField>
       </div>
@@ -40,6 +42,7 @@
           type="submit"
           severity="success"
           [disabled]="loading || loginForm.invalid"
+          [attr.enjisst]="'login__btn__login'"
           >Iniciar sesión</p-button
         >
         <p-button
@@ -47,6 +50,8 @@
           (click)="toggleSignup()"
           [text]="true"
           severity="secondary"
+          [attr.enjisst]="'login__btn__signup'"
+
         />
       </div>
     </form>
