@@ -21,7 +21,7 @@ export class AppComponent {
     ) {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          this.isLoginRoute = event.url === '/login' || event.url === '/signup';
+          this.isLoginRoute = event.url === '/login' || event.url === '/signup' || event.url === '/';
         }
       });
     }

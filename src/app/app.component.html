@@ -1,4 +1,4 @@
-<div class="card" *ngIf="!isLoginRoute">
+<ng-container class="card" *ngIf="!isLoginRoute">
   <p-menubar [model]="items">
     <ng-template pTemplate="item" let-item>
       <ng-container *ngIf="item.route; else urlRef">
@@ -18,7 +18,10 @@
         </a>
       </ng-template>
       <ng-template #noLink>
-        <div class="p-menuitem-link">
+        <div
+          class="p-menuitem-link"
+          [attr.enjisst]="'home__nav__cart'"
+        >
           <span [class]="item.icon"></span>
           <span class="ml-2">{{ item.label }}</span>
           <span class="pi pi-fw pi-angle-down ml-2"></span>
@@ -32,6 +35,7 @@
           icon="pi pi-shopping-cart"
           [rounded]="true"
           [text]="true"
+          [attr.enjisst]="'home__nav__cart'"
           (onClick)="openCart()"
 
         />
@@ -39,12 +43,13 @@
           icon="pi pi-sign-out"
           [rounded]="true"
           [text]="true"
+          [attr.enjisst]="'home__nav__logout'"
           (onClick)="logout()"
         />
       </div>
     </ng-template>
   </p-menubar>
-</div>
+</ng-container>
 <div class="main-container">
   <router-outlet></router-outlet>
 </div>

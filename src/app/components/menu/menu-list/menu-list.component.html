@@ -9,6 +9,8 @@
         pInputText
         [(ngModel)]="searchText"
         (input)="filterProducts()"
+        [attr.enjisst]="'home__in__search'"
+
         placeholder="Busca tu plato favorito, por nombre o descripción"
       />
       <!-- <p-button icon="pi pi-search" severity="success" (onClick)="searchProduct($event)" ></p-button> -->
@@ -39,12 +41,15 @@
                     icon="pi pi-shopping-cart"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
+                    [attr.enjisst]="'home__menu__item' + i"
+
                   />
                   <p-button
                     *ngIf="product.units > 0"
                     [label]="product.units.toString()"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
+                    [attr.enjisst]="'home__menu__item' + i"
                   ></p-button>
 
 

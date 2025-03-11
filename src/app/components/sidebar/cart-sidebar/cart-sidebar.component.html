@@ -54,7 +54,11 @@
             </div>
           </div>
           <div class="flex py-4">
-            <p-button label="Siguiente" (onClick)="nextCallback.emit()" />
+            <p-button
+              label="Siguiente"
+              (onClick)="nextCallback.emit()"
+              [attr.enjisst]="'cart__items__next'"
+             />
           </div>
         </ng-template>
       </p-stepperPanel>
@@ -76,8 +80,13 @@
                 optionLabel="name"
                 placeholder="Elije el método de pago"
                 optionDisabled="disabled"
+                [attr.enjisst]="'cart__payment__value'"
+
               >
-                <ng-template let-city pTemplate="item">
+                <ng-template let-city pTemplate="item"
+                [attr.enjisst]="'cart__payment__opt' + index"
+
+                >
                   <div class="flex align-items-center gap-2 w-100">
                     <div>{{ city.name }}</div>
                   </div>
@@ -90,8 +99,12 @@
               label="Anterior"
               severity="secondary"
               (onClick)="prevCallback.emit()"
+              [attr.enjisst]="'cart__payment__prev'"
             />
-            <p-button label="Siguiente" (onClick)="nextCallback.emit()" [disabled]="!selectedCity" />
+            <p-button label="Siguiente" (onClick)="nextCallback.emit()" [disabled]="!selectedCity"
+              [attr.enjisst]="'cart__payment__next'"
+
+            />
           </div>
         </ng-template>
       </p-stepperPanel>
@@ -149,8 +162,13 @@
               label="Anterior"
               severity="secondary"
               (onClick)="prevCallback.emit()"
+              [attr.enjisst]="'cart__confirm__prev'"
+
             />
-            <p-button label="Confirmar" (onClick)="confirmOrder()" [loading]="loading"  />
+            <p-button label="Confirmar" (onClick)="confirmOrder()" [loading]="loading"
+            [attr.enjisst]="'cart__confirm__next'"
+
+            />
           </div>
         </ng-template>
       </p-stepperPanel>
