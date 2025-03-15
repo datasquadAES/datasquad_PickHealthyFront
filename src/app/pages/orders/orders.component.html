@@ -15,6 +15,7 @@
           [iconDisplay]="'input'"
           [showIcon]="true"
           dateFormat="dd/mm/yy"
+          [attr.enjisst]="'orders__in__range'"
         />
       </div>
       <div class="flex flex-column" >
@@ -23,7 +24,7 @@
           [options]="states"
           formControlName="selectedState"
           placeholder="Elije el estado"
-          [attr.enjisst]="'cart__payment__value'"
+          [attr.enjisst]="'orders__in__state'"
         >
           <ng-template
             let-state
@@ -40,7 +41,7 @@
         <p-button
           label="Limpiar"
           (onClick)="clearFilters()"
-          [attr.enjisst]="'cart'"
+          [attr.enjisst]="'orders__btn__clear'"
           />
       </div>
       </div>
@@ -60,11 +61,8 @@
             <div
               class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
               [ngClass]="{ 'border-top-1 surface-border': !first }"
+              [attr.enjisst]="'orders__item' + i"
             >
-              <!-- <div class="md:w-10rem relative">
-                            <img class="block xl:block mx-auto border-round w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                            <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" [style.left.px]="4" [style.top.px]="4" />
-                        </div> -->
               <div
                 class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
               >
@@ -72,35 +70,32 @@
                   class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
                 >
                   <div>
-                    <span class="font-medium">Orden {{ item.id }}</span>
+                    <span class="font-medium" [attr.enjisst]="'orders__item__id' + i" >Orden {{ item.id }}</span>
                     <div
-                      class="text-lg font-medium text-secondary text-900 mt-2 text-sm"
+                      class="text-lg font-medium text-secondary text-900 mt-2 text-sm" [attr.enjisst]="'orders__item__date' + i"
                     >
                       {{ item.fecha_pedido | date : "dd/MM/yyyy" }}
                     </div>
                   </div>
-                  <!-- <div class="surface-100 p-1" style="border-radius: 30px">
-                                    <div class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                        <span class="text-900 font-medium text-sm">{{ item.rating }}</span>
-                                        <i class="pi pi-star-fill text-yellow-500"></i>
-                                    </div>
-                                </div> -->
                 </div>
                 <div class="flex flex-column md:align-items-end gap-5">
                   <p-tag
                     *ngIf="item.estado === 'entregado'"
                     severity="success"
                     [value]="item.estado"
+                    [attr.enjisst]="'orders__item__state' + i"
                   />
                   <p-tag
                     *ngIf="item.estado === 'en preparación'"
                     severity="warning"
                     [value]="item.estado"
+                    [attr.enjisst]="'orders__item__state' + i"
                   />
                   <p-tag
                     *ngIf="item.estado === 'cancelado'"
                     severity="secondary"
                     [value]="item.estado"
+                    [attr.enjisst]="'orders__item__state' + i"
                   />
                   <!-- <span class="text-xl font-semibold text-900">{{item.estado }}</span> -->
                   <div
@@ -112,7 +107,7 @@
                       label="Cancelar"
                       severity="warning"
                       [disabled]="item.estado === 'entregado'"
-                      [attr.enjisst]="'order' + i"
+                      [attr.enjisst]="'orders__item' + i"
                       (onClick)="cancelOrder(item, i)"
                     />
                   </div>
