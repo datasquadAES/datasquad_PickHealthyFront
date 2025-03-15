@@ -33,6 +33,11 @@ export class AppComponent {
               icon: 'pi pi-home',
               route: '/home'
           },
+          {
+              label: 'Orders',
+              icon: 'pi pi-users',
+              route: 'orders'
+          },
           // {
           //     label: 'Users',
           //     icon: 'pi pi-users',

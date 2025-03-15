@@ -9,6 +9,7 @@ import { environment } from 'src/app/environments/environment';
 export class PedidoService {
 
    private BASE_URL = environment.apiUrl + '/pedidos';
+   private BASE_URL_ALT = environment.apiUrl + '/pedido';
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +19,12 @@ export class PedidoService {
 
   getPedido(id: number): Observable<any> {
     return this.http.get<any>(`${this.BASE_URL}/${id}`);
+  }
+
+  getPedidoByUser(userId: any): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL_ALT}`, {
+      params: { usuario_id: userId.toString() }
+    });
   }
 
   createPedido(pedido: any): Observable<any> {

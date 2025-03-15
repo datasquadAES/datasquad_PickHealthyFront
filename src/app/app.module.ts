@@ -41,6 +41,7 @@ import { ChipModule } from 'primeng/chip';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     MenuListComponent,
     CartSidebarComponent,
     CartItemComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
