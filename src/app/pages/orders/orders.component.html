@@ -35,6 +35,7 @@
                                       label="Cancelar"
                                       severity="warning"
                                       [disabled]="item.estado === 'entregado'"
+                                      [attr.enjisst]="'order' + i"
                                       (onClick)="cancelOrder(item, i)"
                                       />
                                 </div>
