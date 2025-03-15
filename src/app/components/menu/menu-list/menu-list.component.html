@@ -22,17 +22,17 @@
         <div>
           <div class="carousel-item">
             <div class="product-card">
-              <div class="image-container" [attr.enjisst]="'home__menu__item__img'" >
+              <div class="image-container" [attr.enjisst]="'home__menu__item__img'+ i" >
                 <img src="{{ product.imagen_url }}" class="product-image"  />
               </div>
-              <div class="mb-3 font-medium" [attr.enjisst]="'home__menu__item__name'" >
+              <div class="mb-3 font-medium" [attr.enjisst]="'home__menu__item__name'+ i" >
                 {{ product.nombre }}
               </div>
-              <div class="mb-3 text-xs text-500" [attr.enjisst]="'home__menu__item__description'" >
+              <div class="mb-3 text-xs text-500" [attr.enjisst]="'home__menu__item__description'+ i" >
                 {{ product.descripcion }}
               </div>
               <div class="flex justify-content-between align-items-center">
-                <div class="mt-0 font-semibold text-md" [attr.enjisst]="'home__menu__item__price'">
+                <div class="mt-0 font-semibold text-md" [attr.enjisst]="'home__menu__item__price'+ i">
                   {{ product.precio | currency }}
                 </div>
                 <div class="flex align-items-end">
