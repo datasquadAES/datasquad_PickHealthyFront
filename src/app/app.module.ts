@@ -42,6 +42,7 @@ import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
     ToastModule,
     RippleModule,
     RadioButtonModule,
-
+    CalendarModule
 ],
   providers: [
     MessageService,
