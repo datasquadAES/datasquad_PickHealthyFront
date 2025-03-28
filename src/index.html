@@ -13,3 +13,28 @@
   <app-root></app-root>
 </body>
 </html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>YummiHostApp</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+</head>
+<body>
+  <script>
+    // Cargar dinámicamente la API key desde una variable de entorno
+    fetch('/api-key')
+      .then(response => response.text())
+      .then(apiKey => {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
+        document.body.appendChild(script);
+      })
+      .catch(error => console.error('Error al cargar la API key:', error));
+  </script>
+  <app-root></app-root>
+</body>
+</html>
