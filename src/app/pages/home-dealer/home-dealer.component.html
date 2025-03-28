@@ -1,0 +1,118 @@
+<div class="w-full">
+  <google-map
+    height="94dvh"
+    width="100dvw"
+    [center]="center"
+    [zoom]="zoom"
+    (mapClick)="onMapClick($event)"
+  >
+    <map-marker
+      *ngFor="let marker of markers"
+      [position]="marker.position"
+      [label]="marker.label"
+      [title]="marker.title"
+      [options]="marker.options"
+    >
+    </map-marker>
+  </google-map>
+  <p-card id="dealer__available__orders" class="flex flex-column p-1">
+    <ng-container *ngIf="selectedOrders.length > 0">
+      <section id="dealer__selected">
+        <h1>Tus entregas</h1>
+        <div class="flex flex-column gap-1">
+          <div
+            id="dealer__available__orders--orderlist"
+            class="flex flex-column w-full p-1 m-1 gap-1"
+            *ngFor="let order of selectedOrders; let i = index"
+            [attr.enjisst]="'dealer__selectedorder__item' + i"
+          >
+            <div class="flex flex-column justify-content-between mb-3 w-full">
+              <div class="flex flex-row justify-content-between">
+                <div class="flex flex-column">
+                  <span [attr.enjisst]="'dealer__selectedorder__id' + i">{{
+                    order.id
+                  }}</span>
+                  <span [attr.enjisst]="'dealer__selectedorder__date' + i">{{
+                    order.fecha_pedido | date : "dd/MM/yyyy"
+                  }}</span>
+                </div>
+                <!-- <div>
+
+                  <p-chip [label]="order.estado" />
+                </div> -->
+              </div>
+              <div class="flex flex-row justify-content-end w-full gap-1">
+                <p-button
+                  [attr.enjisst]="'dealer__selectedorder__btn__recogido' + i"
+                  *ngIf="order.estado === 'transito'"
+                  size="small"
+                  severity="info"
+                  (click)="changeStatusOrder(i, order, 'recogido')"
+                  >Recogido</p-button
+                >
+                <p-button
+                  [attr.enjisst]="'dealer__selectedorder__btn__entregado' + i"
+                  *ngIf="order.estado === 'recogido'"
+                  size="small"
+                  severity="success"
+                  (click)="changeStatusOrder(i, order, 'entregado')"
+                  >Entregado</p-button
+                >
+                <p-button
+                  [attr.enjisst]="'dealer__selectedorder__btn__cancelado' + i"
+                  *ngIf="
+                    order.estado === 'transito' || order.estado === 'recogido'
+                  "
+                  size="small"
+                  severity="warning"
+                  (click)="changeStatusOrder(i, order, 'cancelado')"
+                  >Cancelar</p-button
+                >
+                <p-tag
+                  [attr.enjisst]="'dealer__selectedorder__tag__entregado' + i"
+                  *ngIf="order.estado == 'entregado'"
+                  icon="pi pi-check"
+                  severity="success"
+                  value="Orden completa"
+                />
+                <p-tag
+                  [attr.enjisst]="'dealer__selectedorder__tag__cancelado' + i"
+                  *ngIf="order.estado == 'cancelado'"
+                  icon="pi pi-times"
+                  severity="info"
+                  value="Orden cancelada"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+    <h1>Ordenes disponibles</h1>
+    <div class="flex flex-column gap-1">
+      <div
+        id="dealer__available__orders--orderlist"
+        class="flex flex-column w-full justify-content-center"
+        *ngFor="let order of filteredOrders; let i = index"
+        [attr.enjisst]="'dealer__available__orders__item' + i"
+      >
+        <div class="flex flex-row justify-content-between mb-3 w-full">
+          <div class="flex flex-column">
+            <span [attr.enjisst]="'dealer__available__orders__id' + i">{{
+              order.id
+            }}</span>
+            <span [attr.enjisst]="'dealer__available__orders__date' + i">{{
+              order.fecha_pedido | date : "dd/MM/yyyy"
+            }}</span>
+          </div>
+          <p-button
+            [attr.enjisst]="'dealer__available__orders__btn__tomar' + i"
+            (click)="selectOrder(order)"
+            >Tomar</p-button
+          >
+        </div>
+      </div>
+
+    </div>
+  </p-card>
+</div>

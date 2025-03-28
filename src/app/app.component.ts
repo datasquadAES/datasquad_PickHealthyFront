@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { MenuItem } from 'primeng/api/menuitem';
 import { NavigationEnd, Router } from '@angular/router';
 import { CartService } from './services/cart/cart.service';
 
@@ -11,7 +10,7 @@ import { CartService } from './services/cart/cart.service';
 })
 export class AppComponent {
 
-    items: MenuItem[] | undefined;
+    items: any[] | undefined;
     isLoginRoute: boolean = false;
 
     constructor(
@@ -37,6 +36,11 @@ export class AppComponent {
               label: 'Orders',
               icon: 'pi pi-users',
               route: 'orders'
+          },
+          {
+              label: 'Home - dealer',
+              icon: 'pi pi-users',
+              route: '/dealer'
           },
           // {
           //     label: 'Users',

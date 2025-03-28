@@ -1,4 +1,3 @@
-import { loadRemoteModule } from '@angular-architects/module-federation';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
@@ -8,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { HomeDealerComponent } from './pages/home-dealer/home-dealer.component';
 
 const routes: Routes = [
   // {
@@ -26,6 +26,7 @@ const routes: Routes = [
   // },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'dealer', component: HomeDealerComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
     { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

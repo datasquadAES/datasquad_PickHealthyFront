@@ -43,6 +43,8 @@ import { RippleModule } from 'primeng/ripple';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { CalendarModule } from 'primeng/calendar';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { HomeDealerComponent } from './pages/home-dealer/home-dealer.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { CalendarModule } from 'primeng/calendar';
     MenuListComponent,
     CartSidebarComponent,
     CartItemComponent,
-    OrdersComponent
+    OrdersComponent,
+    HomeDealerComponent
   ],
   imports: [
     BrowserModule,
@@ -87,11 +90,12 @@ import { CalendarModule } from 'primeng/calendar';
     ToastModule,
     RippleModule,
     RadioButtonModule,
-    CalendarModule
+    CalendarModule,
+    GoogleMapsModule
 ],
   providers: [
     MessageService,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
 
   ],
   bootstrap: [AppComponent]
