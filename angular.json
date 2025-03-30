@@ -57,8 +57,7 @@
 									"maximumError": "4kb"
 								}
 							],
-							"outputHashing": "all",
-							"extraWebpackConfig": "webpack.prod.config.js"
+							"outputHashing": "all"
 						},
 						"development": {
 							"buildOptimizer": false,
@@ -75,8 +74,7 @@
 					"builder": "ngx-build-plus:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "yummi-host-app:build:production",
-							"extraWebpackConfig": "webpack.prod.config.js"
+							"browserTarget": "yummi-host-app:build:production"
 						},
 						"development": {
 							"browserTarget": "yummi-host-app:build:development"
