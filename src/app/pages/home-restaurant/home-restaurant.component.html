@@ -1,1 +1,188 @@
-<p>home-restaurant works!</p>
+<div class="grid p-4">
+  <!-- Barra de herramientas -->
+  <div class="col-12">
+    <p-toolbar>
+      <div class="p-toolbar-group-start">
+        <h2>Manejo de Órdenes</h2>
+      </div>
+      <div class="p-toolbar-group-end">
+        <!-- <button pButton pRipple
+                icon="pi pi-plus"
+                label="Nueva Orden"
+                class="p-button-success"
+                (click)="showNewOrderDialog()"></button> -->
+      </div>
+    </p-toolbar>
+  </div>
+
+  <!-- Sección de órdenes pendientes -->
+  <div class="col-12 md:col-4">
+    <p-card header="Órdenes Pendientes" styleClass="h-full">
+      <p-accordion [multiple]="true">
+        <p-accordionTab *ngFor="let order of pendingOrders; let i = index" [header]="'Orden #' + order.id">
+          <div class="grid">
+            <div class="col-12">
+              <p>{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
+              <p-divider></p-divider>
+              <ul>
+                <li *ngFor="let item of order.items">
+                  {{item.quantity}}x {{item.name}}
+                  <span *ngIf="item.notes">({{item.notes}})</span>
+                </li>
+              </ul>
+              <p-divider></p-divider>
+              <p><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
+            </div>
+            <div class="col-12">
+              <button pButton pRipple
+                      icon="pi pi-play"
+                      label="Comenzar Preparación"
+                      class="p-button-info w-full"
+                      (click)="updateOrderStatus(i, order, 'en preparación')"></button>
+            </div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab *ngIf="getOrdersByStatus('pendiente').length === 0" header="No hay órdenes pendientes">
+          <p>No hay órdenes pendientes en este momento.</p>
+        </p-accordionTab>
+      </p-accordion>
+    </p-card>
+  </div>
+
+  <!-- Sección de órdenes en preparación -->
+  <div class="col-12 md:col-4">
+    <p-card header="En Preparación" styleClass="h-full">
+      <p-accordion [multiple]="true">
+        <p-accordionTab *ngFor="let order of preparationOrders; let i = index" [header]="'Orden #' + order.id">
+          <div class="grid">
+            <div class="col-12">
+              <p>{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
+              <p-divider></p-divider>
+              <ul>
+                <li *ngFor="let item of order.items; let i = index">
+                  {{item.quantity}}x {{item.name}}
+                  <span *ngIf="item.notes">({{item.notes}})</span>
+                </li>
+              </ul>
+              <p-divider></p-divider>
+              <p><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
+            </div>
+            <div class="col-12">
+              <button pButton pRipple
+                      icon="pi pi-check"
+                      label="Marcar como Listo"
+                      class="p-button-success w-full"
+                      (click)="updateOrderStatus(i, order, 'listo')"></button>
+            </div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab *ngIf="getOrdersByStatus('en preparación').length === 0" header="No hay órdenes en preparación">
+          <p>No hay órdenes en preparación en este momento.</p>
+        </p-accordionTab>
+      </p-accordion>
+    </p-card>
+  </div>
+
+  <!-- Sección de órdenes listas para recoger -->
+  <div class="col-12 md:col-4">
+    <p-card header="Listas para Recoger" styleClass="h-full">
+      <p-accordion [multiple]="true">
+        <p-accordionTab *ngFor="let order of readyOrders; let i = index" [header]="'Order #' + order.id">
+          <div class="grid">
+            <div class="col-12">
+              <p>{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
+              <p-divider></p-divider>
+              <ul>
+                <li *ngFor="let item of order.items; let i = index">
+                  {{item.quantity}}x {{item.name}}
+                  <span *ngIf="item.notes">({{item.notes}})</span>
+                </li>
+              </ul>
+              <p-divider></p-divider>
+              <p><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
+            </div>
+            <div class="col-12">
+              <button pButton pRipple
+                      icon="pi pi-check-circle"
+                      label="Marcar como Entregado"
+                      class="p-button-help w-full"
+                      (click)="updateOrderStatus(i, order, 'recogido')"></button>
+            </div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab *ngIf="readyOrders.length === 0" header="No hay órdenes listas">
+          <p>No hay órdenes listas para recoger en este momento.</p>
+        </p-accordionTab>
+      </p-accordion>
+    </p-card>
+  </div>
+</div>
+
+<!-- Diálogo para nueva orden -->
+<!-- <p-dialog [(visible)]="displayDialog" header="Nueva Orden" [modal]="true" [style]="{width: '50vw'}">
+  <div class="grid p-fluid">
+    <div class="col-12">
+      <label for="tableNumber">Número de Mesa</label>
+      <p-inputNumber id="tableNumber" [(ngModel)]="newOrder.tableNumber" mode="decimal"></p-inputNumber>
+    </div>
+
+    <div class="col-12">
+      <h4>Artículos de la Orden</h4>
+      <div class="grid">
+        <div class="col-12 md:col-5">
+          <label for="itemName">Nombre del Artículo</label>
+          <input pInputText id="itemName" [(ngModel)]="newItem.name" placeholder="Ej. Pizza Margarita" />
+        </div>
+        <div class="col-12 md:col-3">
+          <label for="itemQuantity">Cantidad</label>
+          <p-inputNumber id="itemQuantity" [(ngModel)]="newItem.quantity" mode="decimal"></p-inputNumber>
+        </div>
+        <div class="col-12 md:col-4">
+          <label for="itemNotes">Notas</label>
+          <input pInputText id="itemNotes" [(ngModel)]="newItem.notes" placeholder="Ej. Sin cebolla" />
+        </div>
+        <div class="col-12">
+          <button pButton pRipple
+                  icon="pi pi-plus"
+                  label="Agregar Artículo"
+                  class="p-button-secondary"
+                  (click)="addItemToNewOrder()"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <p-divider></p-divider>
+      <h4>Artículos Agregados</h4>
+      <p-listbox [options]="newOrder.items || []" [style]="{width: '100%'}" [listStyle]="{'max-height': '200px'}">
+        <ng-template let-item pTemplate="item">
+          <div class="flex justify-content-between align-items-center">
+            <div>
+              {{item.quantity}}x {{item.name}}
+              <span *ngIf="item.notes">({{item.notes}})</span>
+            </div>
+            <button pButton pRipple
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-danger p-button-text"
+                    (click)="removeItemFromNewOrder(1); $event.stopPropagation()"></button>
+          </div>
+        </ng-template>
+      </p-listbox>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple
+            icon="pi pi-times"
+            label="Cancelar"
+            class="p-button-text"
+            (click)="displayDialog = false"></button>
+    <button pButton pRipple
+            icon="pi pi-check"
+            label="Guardar Orden"
+            class="p-button-success"
+            (click)="saveNewOrder()"
+            [disabled]="!newOrder.tableNumber || !newOrder.items || newOrder.items.length === 0"></button>
+  </ng-template>
+</p-dialog> -->
+

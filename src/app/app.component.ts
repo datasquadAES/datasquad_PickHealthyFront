@@ -33,14 +33,19 @@ export class AppComponent {
               route: '/home'
           },
           {
-              label: 'Orders',
+              label: 'Ordenes',
               icon: 'pi pi-users',
               route: 'orders'
           },
           {
-              label: 'Home - dealer',
+              label: 'Home - repartidor',
               icon: 'pi pi-users',
               route: '/dealer'
+          },
+          {
+              label: 'Home - restaurante',
+              icon: 'pi pi-users',
+              route: '/restaurant'
           },
           // {
           //     label: 'Users',

@@ -8,6 +8,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { HomeDealerComponent } from './pages/home-dealer/home-dealer.component';
+import { HomeRestaurantComponent } from './pages/home-restaurant/home-restaurant.component';
 
 const routes: Routes = [
   // {
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'dealer', component: HomeDealerComponent, canActivate: [AuthGuard] },
+    { path: 'restaurant', component: HomeRestaurantComponent, canActivate: [AuthGuard] },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
     { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

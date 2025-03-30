@@ -15,6 +15,7 @@ import { TableComponent } from './components/skeletons/table/table.component';
 import { MenuListComponent } from "./components/menu/menu-list/menu-list.component";
 import { CartSidebarComponent } from "./components/sidebar/cart-sidebar/cart-sidebar.component";
 import { CartItemComponent } from './components/sidebar/cart-item/cart-item.component';
+import { HomeRestaurantComponent } from './pages/home-restaurant/home-restaurant.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MenubarModule } from 'primeng/menubar';
@@ -45,6 +46,11 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { CalendarModule } from 'primeng/calendar';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HomeDealerComponent } from './pages/home-dealer/home-dealer.component';
+import { AccordionModule } from 'primeng/accordion';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DividerModule } from 'primeng/divider';
+import { DialogModule } from 'primeng/dialog';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   declarations: [
@@ -58,7 +64,8 @@ import { HomeDealerComponent } from './pages/home-dealer/home-dealer.component';
     CartSidebarComponent,
     CartItemComponent,
     OrdersComponent,
-    HomeDealerComponent
+    HomeDealerComponent,
+    HomeRestaurantComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +98,12 @@ import { HomeDealerComponent } from './pages/home-dealer/home-dealer.component';
     RippleModule,
     RadioButtonModule,
     CalendarModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    AccordionModule,
+    ToolbarModule,
+    DividerModule,
+    DialogModule,
+    ListboxModule
 ],
   providers: [
     MessageService,
