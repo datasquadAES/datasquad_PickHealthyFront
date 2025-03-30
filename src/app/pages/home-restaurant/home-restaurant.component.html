@@ -19,30 +19,31 @@
   <div class="col-12 md:col-4">
     <p-card header="Órdenes Pendientes" styleClass="h-full">
       <p-accordion [multiple]="true">
-        <p-accordionTab *ngFor="let order of pendingOrders; let i = index" [header]="'Orden #' + order.id">
+        <p-accordionTab *ngFor="let order of pendingOrders; let i = index" [header]="'Orden #' + order.id" [attr.enjisst]="'rest__order' + i" >
           <div class="grid">
             <div class="col-12">
-              <p>{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
+              <p [attr.enjisst]="'rest__order__date' + i">{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
               <p-divider></p-divider>
               <ul>
-                <li *ngFor="let item of order.items">
+                <li *ngFor="let item of order.items" [attr.enjisst]="'rest__order__item' + i">
                   {{item.quantity}}x {{item.name}}
                   <span *ngIf="item.notes">({{item.notes}})</span>
                 </li>
               </ul>
               <p-divider></p-divider>
-              <p><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
+              <p [attr.enjisst]="'rest__order__total' + i" ><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
             </div>
             <div class="col-12">
               <button pButton pRipple
                       icon="pi pi-play"
                       label="Comenzar Preparación"
                       class="p-button-info w-full"
+                      [attr.enjisst]="'rest__order__btn__prepare' + i"
                       (click)="updateOrderStatus(i, order, 'en preparación')"></button>
             </div>
           </div>
         </p-accordionTab>
-        <p-accordionTab *ngIf="getOrdersByStatus('pendiente').length === 0" header="No hay órdenes pendientes">
+        <p-accordionTab *ngIf="getOrdersByStatus('pendiente').length === 0" header="No hay órdenes pendientes" [attr.enjisst]="'rest__order__no__pending'" >
           <p>No hay órdenes pendientes en este momento.</p>
         </p-accordionTab>
       </p-accordion>
@@ -53,30 +54,31 @@
   <div class="col-12 md:col-4">
     <p-card header="En Preparación" styleClass="h-full">
       <p-accordion [multiple]="true">
-        <p-accordionTab *ngFor="let order of preparationOrders; let i = index" [header]="'Orden #' + order.id">
+        <p-accordionTab *ngFor="let order of preparationOrders; let i = index" [header]="'Orden #' + order.id"  [attr.enjisst]="'rest__orderonpreparation' + i">
           <div class="grid">
             <div class="col-12">
-              <p>{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
+              <p [attr.enjisst]="'rest__orderonpreparation__date' + i" >{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
               <p-divider></p-divider>
               <ul>
-                <li *ngFor="let item of order.items; let i = index">
+                <li *ngFor="let item of order.items; let i = index"  [attr.enjisst]="'rest__orderonpreparation__item' + i">
                   {{item.quantity}}x {{item.name}}
                   <span *ngIf="item.notes">({{item.notes}})</span>
                 </li>
               </ul>
               <p-divider></p-divider>
-              <p><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
+              <p [attr.enjisst]="'rest__orderonpreparation__total' + i" ><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
             </div>
             <div class="col-12">
               <button pButton pRipple
                       icon="pi pi-check"
                       label="Marcar como Listo"
                       class="p-button-success w-full"
+                      [attr.enjisst]="'rest__orderonpreparation__btn__complete' + i"
                       (click)="updateOrderStatus(i, order, 'listo')"></button>
             </div>
           </div>
         </p-accordionTab>
-        <p-accordionTab *ngIf="getOrdersByStatus('en preparación').length === 0" header="No hay órdenes en preparación">
+        <p-accordionTab *ngIf="getOrdersByStatus('en preparación').length === 0" header="No hay órdenes en preparación"  [attr.enjisst]="'rest__orderonpreparation__no__onprepare'">
           <p>No hay órdenes en preparación en este momento.</p>
         </p-accordionTab>
       </p-accordion>
@@ -87,25 +89,26 @@
   <div class="col-12 md:col-4">
     <p-card header="Listas para Recoger" styleClass="h-full">
       <p-accordion [multiple]="true">
-        <p-accordionTab *ngFor="let order of readyOrders; let i = index" [header]="'Order #' + order.id">
+        <p-accordionTab *ngFor="let order of readyOrders; let i = index" [header]="'Order #' + order.id" [attr.enjisst]="'rest__readyorder' + i">
           <div class="grid">
             <div class="col-12">
-              <p>{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
+              <p [attr.enjisst]="'rest__readyorder__date' + i" >{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
               <p-divider></p-divider>
               <ul>
-                <li *ngFor="let item of order.items; let i = index">
+                <li *ngFor="let item of order.items; let i = index" [attr.enjisst]="'rest__readyorder__item' + i" >
                   {{item.quantity}}x {{item.name}}
                   <span *ngIf="item.notes">({{item.notes}})</span>
                 </li>
               </ul>
               <p-divider></p-divider>
-              <p><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
+              <p [attr.enjisst]="'rest__readyorder__total' + i" ><strong>Total:</strong> ${{getOrderTotal(order) | number:'1.2-2'}}</p>
             </div>
             <div class="col-12">
               <button pButton pRipple
                       icon="pi pi-check-circle"
                       label="Marcar como Entregado"
                       class="p-button-help w-full"
+                      [attr.enjisst]="'rest__readyorder__btn__pickedup' + i"
                       (click)="updateOrderStatus(i, order, 'recogido')"></button>
             </div>
           </div>
