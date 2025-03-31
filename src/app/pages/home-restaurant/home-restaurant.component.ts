@@ -14,7 +14,7 @@ interface OrderItem {
   name: string;
   cantidad: number;
   notes: string;
-  plato: Plato[]
+  plato: Plato
 }
 
 interface Plato {
@@ -45,7 +45,12 @@ export class HomeRestaurantComponent {
     name: '',
     cantidad: 1,
     notes: '',
-    plato: []
+    plato: {
+      nombre: '',
+      quantity: 0,
+      precio: 0,
+      descripcion: ''
+    }
   };
   displayDialog: boolean = false;
   statusOptions = [
@@ -92,7 +97,12 @@ export class HomeRestaurantComponent {
         ...(this.newOrder.detalles || []),
         { ...this.newItem },
       ];
-      this.newItem = { name: '', cantidad: 1, notes: '', plato: [] };
+      this.newItem = { name: '', cantidad: 1, notes: '', plato: {
+        nombre: '',
+        quantity: 0,
+        precio: 0,
+        descripcion: ''
+      } };
     }
   }
 
@@ -129,10 +139,8 @@ export class HomeRestaurantComponent {
   getOrderTotal(order : Order):number{
     let total = 0
 
-    order.detalles.forEach((item) => {
-      item.plato.forEach((plato) => {
-        total += plato.precio * item.cantidad
-      })
+    order.detalles.forEach((item: any) => {
+        total += item.plato.precio * item.cantidad
     })
 
     return total

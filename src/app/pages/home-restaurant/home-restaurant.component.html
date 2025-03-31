@@ -26,8 +26,8 @@
               <p-divider></p-divider>
               <ul>
                 <li *ngFor="let item of order?.detalles" [attr.enjisst]="'rest__order__item' + i">
-                  <span *ngIf="item.plato[0]">
-                    {{item.plato[0].nombre}} x {{item.cantidad}}
+                  <span *ngIf="item.plato">
+                    {{item.plato.nombre}} x {{item.cantidad}}
                   </span>
                 </li>
               </ul>
@@ -62,8 +62,8 @@
               <p-divider></p-divider>
               <ul>
                 <li *ngFor="let item of order?.detalles; let i = index"  [attr.enjisst]="'rest__orderonpreparation__item' + i">
-                  <span *ngIf="item.plato[0]">
-                    {{item.plato[0].nombre}} x {{item.cantidad}}
+                  <span *ngIf="item.plato">
+                    {{item.plato.nombre}} x {{item.cantidad}}
                   </span>
                 </li>
               </ul>
@@ -98,8 +98,8 @@
               <p-divider></p-divider>
               <ul>
                 <li *ngFor="let item of order?.detalles; let i = index" [attr.enjisst]="'rest__readyorder__item' + i" >
-                  <span *ngIf="item.plato[0]">
-                    {{item.plato[0].nombre}} x {{item.cantidad}}
+                  <span *ngIf="item.plato">
+                    {{item.plato.nombre}} x {{item.cantidad}}
                   </span>
                 </li>
               </ul>
