@@ -25,9 +25,10 @@
               <p [attr.enjisst]="'rest__order__date' + i">{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
               <p-divider></p-divider>
               <ul>
-                <li *ngFor="let item of order.detalles" [attr.enjisst]="'rest__order__item' + i">
-                  {{item.plato[0].nombre}} x {{item.cantidad}}
-                  <span *ngIf="item.notes">({{item.notes}})</span>
+                <li *ngFor="let item of order?.detalles" [attr.enjisst]="'rest__order__item' + i">
+                  <span *ngIf="item.plato[0]">
+                    {{item.plato[0].nombre}} x {{item.cantidad}}
+                  </span>
                 </li>
               </ul>
               <p-divider></p-divider>
@@ -43,9 +44,9 @@
             </div>
           </div>
         </p-accordionTab>
-        <p-accordionTab *ngIf="getOrdersByStatus('pendiente').length === 0" header="No hay órdenes pendientes" [attr.enjisst]="'rest__order__no__pending'" >
+        <span *ngIf="getOrdersByStatus('pendiente').length === 0" header="No hay órdenes pendientes" [attr.enjisst]="'rest__order__no__pending'" >
           <p>No hay órdenes pendientes en este momento.</p>
-        </p-accordionTab>
+        </span>
       </p-accordion>
     </p-card>
   </div>
@@ -60,9 +61,10 @@
               <p [attr.enjisst]="'rest__orderonpreparation__date' + i" >{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
               <p-divider></p-divider>
               <ul>
-                <li *ngFor="let item of order.detalles; let i = index"  [attr.enjisst]="'rest__orderonpreparation__item' + i">
-                  {{item.plato[0].nombre}} x {{item.cantidad}}
-                  <span *ngIf="item.notes">({{item.notes}})</span>
+                <li *ngFor="let item of order?.detalles; let i = index"  [attr.enjisst]="'rest__orderonpreparation__item' + i">
+                  <span *ngIf="item.plato[0]">
+                    {{item.plato[0].nombre}} x {{item.cantidad}}
+                  </span>
                 </li>
               </ul>
               <p-divider></p-divider>
@@ -78,9 +80,9 @@
             </div>
           </div>
         </p-accordionTab>
-        <p-accordionTab *ngIf="getOrdersByStatus('en preparación').length === 0" header="No hay órdenes en preparación"  [attr.enjisst]="'rest__orderonpreparation__no__onprepare'">
+        <span *ngIf="getOrdersByStatus('en preparación').length === 0" header="No hay órdenes en preparación"  [attr.enjisst]="'rest__orderonpreparation__no__onprepare'">
           <p>No hay órdenes en preparación en este momento.</p>
-        </p-accordionTab>
+        </span>
       </p-accordion>
     </p-card>
   </div>
@@ -95,9 +97,10 @@
               <p [attr.enjisst]="'rest__readyorder__date' + i" >{{order.fecha_pedido | date : "dd/MM/yyyy"}}</p>
               <p-divider></p-divider>
               <ul>
-                <li *ngFor="let item of order.detalles; let i = index" [attr.enjisst]="'rest__readyorder__item' + i" >
-                  {{item.plato[0].nombre}} x {{item.cantidad}}
-                  <span *ngIf="item.notes">({{item.notes}})</span>
+                <li *ngFor="let item of order?.detalles; let i = index" [attr.enjisst]="'rest__readyorder__item' + i" >
+                  <span *ngIf="item.plato[0]">
+                    {{item.plato[0].nombre}} x {{item.cantidad}}
+                  </span>
                 </li>
               </ul>
               <p-divider></p-divider>
@@ -113,9 +116,9 @@
             </div>
           </div>
         </p-accordionTab>
-        <p-accordionTab *ngIf="readyOrders.length === 0" header="No hay órdenes listas">
+        <span *ngIf="readyOrders.length === 0" header="No hay órdenes listas">
           <p>No hay órdenes listas para recoger en este momento.</p>
-        </p-accordionTab>
+        </span>
       </p-accordion>
     </p-card>
   </div>
