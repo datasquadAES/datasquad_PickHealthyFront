@@ -5,15 +5,23 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 interface Order {
   id: number;
   tableNumber: number;
-  items: OrderItem[];
+  detalles: OrderItem[];
   estado: 'pendiente' | 'en preparación' | 'listo' | 'completed';
   fecha_pedido: Date;
 }
 
 interface OrderItem {
   name: string;
-  quantity: number;
+  cantidad: number;
   notes: string;
+  plato: Plato[]
+}
+
+interface Plato {
+  nombre: string;
+  quantity: number;
+  precio: number;
+  descripcion: string;
 }
 
 @Component({
@@ -30,13 +38,14 @@ export class HomeRestaurantComponent {
   selectedOrder: Order | null = null;
   newOrder: Partial<Order> = {
     tableNumber: 0,
-    items: [],
+    detalles: [],
     estado: 'pendiente',
   };
   newItem: OrderItem = {
     name: '',
-    quantity: 1,
+    cantidad: 1,
     notes: '',
+    plato: []
   };
   displayDialog: boolean = false;
   statusOptions = [
@@ -71,7 +80,7 @@ export class HomeRestaurantComponent {
   showNewOrderDialog(): void {
     this.newOrder = {
       tableNumber: 0,
-      items: [],
+      detalles: [],
       estado: 'pendiente',
     };
     this.displayDialog = true;
@@ -79,25 +88,25 @@ export class HomeRestaurantComponent {
 
   addItemToNewOrder(): void {
     if (this.newItem.name) {
-      this.newOrder.items = [
-        ...(this.newOrder.items || []),
+      this.newOrder.detalles = [
+        ...(this.newOrder.detalles || []),
         { ...this.newItem },
       ];
-      this.newItem = { name: '', quantity: 1, notes: '' };
+      this.newItem = { name: '', cantidad: 1, notes: '', plato: [] };
     }
   }
 
   removeItemFromNewOrder(index: number): void {
-    if (this.newOrder.items) {
-      this.newOrder.items = this.newOrder.items.filter((_, i) => i !== index);
+    if (this.newOrder.detalles) {
+      this.newOrder.detalles = this.newOrder.detalles.filter((_, i) => i !== index);
     }
   }
 
   saveNewOrder(): void {
     if (
       this.newOrder.tableNumber &&
-      this.newOrder.items &&
-      this.newOrder.items.length > 0
+      this.newOrder.detalles &&
+      this.newOrder.detalles.length > 0
     ) {
       const newOrder: Order = {
         id:
@@ -105,7 +114,7 @@ export class HomeRestaurantComponent {
             ? Math.max(...this.orders.map((o) => o.id)) + 1
             : 1,
         tableNumber: this.newOrder.tableNumber,
-        items: [],
+        detalles: [],
         estado: 'pendiente',
         fecha_pedido: new Date(),
       };
@@ -117,7 +126,17 @@ export class HomeRestaurantComponent {
     return this.orders.filter((order:any) => order.estado === status);
   }
 
-  getOrderTotal(order : Order):number{ return 0}
+  getOrderTotal(order : Order):number{
+    let total = 0
+
+    order.detalles.forEach((item) => {
+      item.plato.forEach((plato) => {
+        total += plato.precio * item.cantidad
+      })
+    })
+
+    return total
+  }
 
   async updateOrderStatus(index:number, order : any, newStatus : any){
     const updatedOrder = {
