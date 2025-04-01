@@ -26,69 +26,48 @@ export class AppComponent {
     }
 
     ngOnInit() {
-      this.items = [
-          {
-              label: 'Home',
-              icon: 'pi pi-home',
-              route: '/home'
-          },
-          {
-              label: 'Ordenes',
-              icon: 'pi pi-users',
-              route: 'orders'
-          },
-          {
-              label: 'Home - repartidor',
-              icon: 'pi pi-users',
-              route: '/dealer'
-          },
-          {
-              label: 'Home - restaurante',
-              icon: 'pi pi-users',
-              route: '/restaurant'
-          },
-          // {
-          //     label: 'Users',
-          //     icon: 'pi pi-users',
-          //     route: 'users'
-          // },
-          // {
-          //     label: 'Projects',
-          //     icon: 'pi pi-search',
-          //     items: [
-          //         {
-          //             label: 'Components',
-          //             icon: 'pi pi-bolt'
-          //         },
-          //         {
-          //             label: 'Blocks',
-          //             icon: 'pi pi-server'
-          //         },
-          //         {
-          //             label: 'UI Kit',
-          //             icon: 'pi pi-pencil'
-          //         },
-          //         {
-          //             label: 'Templates',
-          //             icon: 'pi pi-palette',
-          //             items: [
-          //                 {
-          //                     label: 'Apollo',
-          //                     icon: 'pi pi-palette'
-          //                 },
-          //                 {
-          //                     label: 'Ultima',
-          //                     icon: 'pi pi-palette'
-          //                 }
-          //             ]
-          //         }
-          //     ]
-          // },
-          // {
-          //     label: 'Contact',
-          //     icon: 'pi pi-envelope'
-          // }
-      ]
+      const userStr = sessionStorage.getItem('user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        const userType = user.id_tipo_usuario;
+
+        switch(userType) {
+          case 1: // Cliente
+            this.items = [
+              {
+                label: 'Home',
+                icon: 'pi pi-home',
+                route: '/home'
+              },
+              {
+                label: 'Ordenes',
+                icon: 'pi pi-search',
+                route: 'orders'
+              }
+            ];
+            break;
+          case 2: // Restaurante
+            this.items = [
+              {
+                label: 'Home',
+                icon: 'pi pi-store',
+                route: '/restaurant'
+              }
+            ];
+            break;
+          case 3: // Repartidor
+            this.items = [
+              {
+                label: 'Home',
+                icon: 'pi pi-truck',
+                route: '/dealer'
+              }
+            ];
+            break;
+          default:
+            this.items = [];
+        }
+      }
     }
 
     logout() {
@@ -98,7 +77,5 @@ export class AppComponent {
     openCart(){
       this.cartService.showCart();
     }
-
-
 
 }

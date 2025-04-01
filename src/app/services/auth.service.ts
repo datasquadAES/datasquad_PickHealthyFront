@@ -26,7 +26,20 @@ export class AuthService {
             // Si el usuario existe y no está bloqueado
             sessionStorage.setItem('user', JSON.stringify(user));
             this.isAuthenticated = true;
-            this.router.navigate(['/home']);
+
+            // Navegar según el perfil del usuario
+            if (user.id_tipo_usuario === 3) {
+              this.router.navigate(['/dealer']);
+            }
+
+            if (user.id_tipo_usuario === 2) {
+              this.router.navigate(['/restaurant']);
+            }
+
+            if(user.id_tipo_usuario === 1){
+              this.router.navigate(['/home']);
+            }
+
             return true;
           }),
           catchError((error) => {
