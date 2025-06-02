@@ -7,6 +7,7 @@ import { firstValueFrom, Subscription, Observable } from 'rxjs';
 import { PagoService } from 'src/app/services/pago/pago.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Product } from 'src/app/models/product.model';
+import { CreateOrderDto } from 'src/app/models/dto/createOrder.dto';
 
 
 @Component({
@@ -69,11 +70,11 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
     })
 
     this.cities = [
-      { name: 'Nequi', code: 'NQ', disabled: true },
-      { name: 'Daviplata', code: 'DP', disabled: true },
-      { name: 'Tarjeta credito', code: 'TC', disabled: true },
-      { name: 'Tarjeta débito', code: 'TD', disabled: true },
-      { name: 'Efectivo', code: 'E' },
+      { name: 'Nequi', code: 'pse' },
+      { name: 'Daviplata', code: 'pse' },
+      { name: 'Tarjeta credito', code: 'tarjeta' },
+      { name: 'Tarjeta débito', code: 'tarjeta' },
+      { name: 'Efectivo', code: 'efectivo' },
     ];
 
 
@@ -132,10 +133,22 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
   async createOrder() {
     let pedido;
 
-    const orderData = {
-      usuario_id: this.user?.id,
-      fecha: new Date().toISOString(),
-      estado: 'en preparación',
+    const orderData: CreateOrderDto = {
+      orderData: {
+        user_id: this.user?.id,
+        store_id: 0,
+        dealer_id: 0,
+        address: this.personalDataForm.value.direccion || '',
+        total_amount: this.getTotal(),
+      },
+      items: this.addedProducts.map((product : Product) => {
+        return {
+          product_id: product.id,
+          quantity: product.units,
+          unit_price: product.price
+        };
+      }),
+      payment_method: this.selectedCity?.name
     };
 
     try {
@@ -150,11 +163,12 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
 
   handlePayment(pedido: any) {
     const paymentData = {
-      pedido_id: pedido.id,
-      metodo_pago: this.selectedCity?.name,
-      cantidad: this.getTotal(),
-      fecha_pago: new Date().toISOString(),
-      estado: 'pendiente',
+      order_id: pedido.id,
+      user_id: this.user?.id,
+      amount: this.getTotal(),
+      payment_method: this.selectedCity?.name,
+      status: 'pendiente'
+
     };
 
     this.PagoService.createPago(paymentData).subscribe((payment: any) => {

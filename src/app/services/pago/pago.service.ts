@@ -8,7 +8,7 @@ import { environment } from 'src/app/environments/environment';
 })
 export class PagoService {
 
-   private BASE_URL = environment.apiUrl + '/pagos';
+   private BASE_URL = environment.gatewayUrl + '/payments';
 
   constructor(private http: HttpClient) { }
 

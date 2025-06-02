@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
+import { CreateOrderDto } from 'src/app/models/dto/createOrder.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
 
-   private BASE_URL = environment.apiUrl + '/pedidos';
+   private BASE_URL = environment.gatewayUrl + '/orders';
    private BASE_URL_ALT = environment.apiUrl + '/pedido';
 
   constructor(private http: HttpClient) { }
@@ -27,7 +28,7 @@ export class PedidoService {
     });
   }
 
-  createPedido(pedido: any): Observable<any> {
+  createPedido(pedido: CreateOrderDto): Observable<any> {
     return this.http.post<any>(`${this.BASE_URL}`, pedido);
   }
 
