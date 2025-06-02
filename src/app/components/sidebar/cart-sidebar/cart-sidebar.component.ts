@@ -148,7 +148,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
           unit_price: product.price
         };
       }),
-      payment_method: this.selectedCity?.name
+      payment_method: this.selectedCity?.code
     };
 
     try {
@@ -166,7 +166,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
       order_id: pedido.id,
       user_id: this.user?.id,
       amount: this.getTotal(),
-      payment_method: this.selectedCity?.name,
+      payment_method: this.selectedCity?.code,
       status: 'pendiente'
 
     };
