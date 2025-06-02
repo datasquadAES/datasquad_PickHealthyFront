@@ -12,23 +12,33 @@ export class OrdersComponent implements OnInit {
   orders: any[] = [];
   filteredOrders: any[] = [];
   rangeDates: any;
-  states: any[] = ['Todos','entregado','en preparación','cancelado']
+  states: any[] | undefined;
   formGroup: FormGroup | undefined;
 
   constructor(private pedidoService: PedidoService) {}
 
   ngOnInit(): void {
+    this.states = [
+      {name: 'Todos', code: 'Todos'},
+      {name: 'pendiente', code: 'pendiente'},
+      {name: 'pagado', code: 'pagado'},
+      {name: 'en camino' , code: 'en camino'},
+      {name: 'en preparación' , code: 'en preparación'},
+      {name: 'cancelado', code: 'cancelado'},
+      {name: 'Lista para pago', code: 'lista_para_pago'}
+    ]
     this.getUserData();
     this.loadOrders();
 
     this.formGroup = new FormGroup({
       date: new FormControl<Date | null>(null),
-      selectedState: new FormControl<string>('Todos')
+      selectedState: new FormControl<any>({name: 'Todos', code: 'Todos'})
     });
 
     this.formGroup.valueChanges.subscribe((value) => {
       this.applyFilters(value);
     });
+
   }
 
   loadOrders() {
@@ -60,18 +70,12 @@ export class OrdersComponent implements OnInit {
   }
 
   cancelOrder(order: any, index: number) {
-    this.pedidoService.updatePedido(order?.id, { estado: 'cancelado' }).subscribe((res) => {
+    this.pedidoService.updatePedido(order?.id, { status: 'cancelado' }).subscribe((res) => {
       this.orders[index] = res;
     });
   }
 
-  filterByState(selectedState: string){
-    if(selectedState === 'Todos') {
-      this.filteredOrders = this.orders;
-    } else {
-      this.filteredOrders = this.orders.filter(item => item.estado === selectedState);
-    }
-  }
+
 
   filterByDate(dates: Date[]) {
     const [start, end] = dates;
@@ -81,6 +85,7 @@ export class OrdersComponent implements OnInit {
   }
 
   applyFilters(value: any) {
+
     let filtered = this.orders;
 
     if (value.date && value.date[1] !== null) {
@@ -89,15 +94,15 @@ export class OrdersComponent implements OnInit {
       );
     }
 
-    if (value.selectedState !== 'Todos') {
-      filtered = filtered.filter(item => item.estado === value.selectedState);
+    if (value.selectedState?.code !== 'Todos') {
+      filtered = filtered.filter(item => item.status === value.selectedState?.code);
     }
 
     this.filteredOrders = filtered;
   }
 
   clearFilters() {
-    this.formGroup?.reset({ date: null, selectedState: 'Todos' });
+    this.formGroup?.reset({ date: null, selectedState: {name: 'Todos', code: 'Todos'} });
     this.filteredOrders = this.orders;
   }
 }

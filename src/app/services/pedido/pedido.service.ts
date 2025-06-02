@@ -9,8 +9,7 @@ import { CreateOrderDto } from 'src/app/models/dto/createOrder.dto';
 })
 export class PedidoService {
 
-   private BASE_URL = environment.gatewayUrl + '/orders';
-   private BASE_URL_ALT = environment.apiUrl + '/pedido';
+  private BASE_URL = environment.gatewayUrl + '/orders';
 
   constructor(private http: HttpClient) { }
 
@@ -23,8 +22,8 @@ export class PedidoService {
   }
 
   getPedidoByUser(userId: any): Observable<any> {
-    return this.http.get<any>(`${this.BASE_URL_ALT}`, {
-      params: { usuario_id: userId.toString() }
+    return this.http.get<any>(`${this.BASE_URL}/filter`, {
+      params: { user_id: userId.toString() }
     });
   }
 

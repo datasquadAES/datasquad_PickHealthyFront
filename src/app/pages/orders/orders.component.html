@@ -22,6 +22,7 @@
         <label for="username">Estado</label>
         <p-dropdown
           [options]="states"
+          optionLabel="name"
           formControlName="selectedState"
           placeholder="Elije el estado"
           [attr.enjisst]="'orders__in__state'"
@@ -32,7 +33,7 @@
             [attr.enjisst]="'cart__payment__opt' + index"
           >
             <div class="flex align-items-center gap-2 w-100">
-              <div>{{ state }}</div>
+              <div>{{ state.name }}</div>
             </div>
           </ng-template>
         </p-dropdown>
@@ -80,33 +81,44 @@
                 </div>
                 <div class="flex flex-column md:align-items-end gap-5">
                   <p-tag
-                    *ngIf="item.estado === 'entregado'"
+                    *ngIf="item.status === 'entregado'"
                     severity="success"
-                    [value]="item.estado"
+                    [value]="item.status"
                     [attr.enjisst]="'orders__item__state' + i"
                   />
                   <p-tag
-                    *ngIf="item.estado === 'en preparación'"
+                    *ngIf="item.status === 'en preparación'"
                     severity="warning"
-                    [value]="item.estado"
+                    [value]="item.status"
                     [attr.enjisst]="'orders__item__state' + i"
                   />
                   <p-tag
-                    *ngIf="item.estado === 'cancelado'"
-                    severity="secondary"
-                    [value]="item.estado"
+                    *ngIf="item.status === 'pendiente'"
+                    severity="warning"
+                    [value]="item.status"
                     [attr.enjisst]="'orders__item__state' + i"
                   />
-                  <!-- <span class="text-xl font-semibold text-900">{{item.estado }}</span> -->
+                  <p-tag
+                    *ngIf="item.status === 'lista_para_pago'"
+                    [value]="item.status"
+                    [attr.enjisst]="'orders__item__state' + i"
+                  />
+                  <p-tag
+                    *ngIf="item.status === 'cancelado'"
+                    severity="secondary"
+                    [value]="item.status"
+                    [attr.enjisst]="'orders__item__state' + i"
+                  />
+                  <!-- <span class="text-xl font-semibold text-900">{{item.status }}</span> -->
                   <div
-                    *ngIf="item.estado === 'en preparación'"
+                    *ngIf="item.status === 'en preparación'"
                     class="flex flex-row-reverse md:flex-row gap-2"
                   >
                     <p-button
                       class="flex-auto md:flex-initial white-space-nowrap"
                       label="Cancelar"
                       severity="warning"
-                      [disabled]="item.estado === 'entregado'"
+                      [disabled]="item.status === 'entregado'"
                       [attr.enjisst]="'orders__item' + i"
                       (onClick)="cancelOrder(item, i)"
                     />
