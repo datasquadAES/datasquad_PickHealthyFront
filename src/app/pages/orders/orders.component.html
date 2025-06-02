@@ -3,7 +3,7 @@
 
   <ng-container *ngIf="orders.length > 0" class="card flex flex-row gap-4">
     <form [formGroup]="formGroup!">
-      <div class="card flex flex-row gap-4 align-items-end" >
+      <div id="form-order-filters" class="card flex gap-4" >
 
         <div class="flex flex-column" >
 
@@ -18,7 +18,7 @@
           [attr.enjisst]="'orders__in__range'"
         />
       </div>
-      <div class="flex flex-column" >
+      <div class="flex flex-column sm-w-6" >
         <label for="username">Estado</label>
         <p-dropdown
           [options]="states"

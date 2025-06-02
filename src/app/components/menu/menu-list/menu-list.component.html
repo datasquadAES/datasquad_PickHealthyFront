@@ -23,17 +23,17 @@
           <div class="carousel-item">
             <div class="product-card">
               <div class="image-container" [attr.enjisst]="'home__menu__item__img'+ i" >
-                <img src="{{ product.imagen_url }}" class="product-image"  />
+                <img src="{{ product.image_url }}" class="product-image"  />
               </div>
               <div class="mb-3 font-medium" [attr.enjisst]="'home__menu__item__name'+ i" >
-                {{ product.nombre }}
+                {{ product.name }}
               </div>
               <div class="mb-3 text-xs text-500" [attr.enjisst]="'home__menu__item__description'+ i" >
-                {{ product.descripcion }}
+                {{ product.description }}
               </div>
               <div class="flex justify-content-between align-items-center">
                 <div class="mt-0 font-semibold text-md" [attr.enjisst]="'home__menu__item__price'+ i">
-                  {{ product.precio | currency }}
+                  {{ product.price | currency }}
                 </div>
                 <div class="flex align-items-end">
                   <p-button
@@ -45,8 +45,8 @@
 
                   />
                   <p-button
-                    *ngIf="product.units > 0"
-                    [label]="product.units.toString()"
+                    *ngIf="product?.units && product.units > 0"
+                    [label]="product?.units?.toString()"
                     styleClass="ml-2"
                     (onClick)="addToCart(product)"
                     [attr.enjisst]="'home__menu__item' + i"

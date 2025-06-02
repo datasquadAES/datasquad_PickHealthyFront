@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { firstValueFrom, Subscription, Observable } from 'rxjs';
 import { PagoService } from 'src/app/services/pago/pago.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { Product } from 'src/app/models/product.model';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 })
 export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
   sidebarVisible: boolean = false;
-  addedProducts: any[] = [];
+  addedProducts: Product[] = [];
   activeStep: number = 0
   sortOptions!: any[];
   sortOrder!: number;
@@ -48,7 +49,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
       this.activeStep = 0;
     });
 
-    this.cartService.cart$.subscribe((items: any[]) => {
+    this.cartService.cart$.subscribe((items: Product[]) => {
       this.addedProducts = items;
       if(items){
         this.getTotal();
@@ -122,7 +123,7 @@ export class CartSidebarComponent implements OnInit, OnChanges, OnDestroy {
   getTotal(): number {
     let total = 0;
     for (let item of this.addedProducts) {
-      total += item.precio * item.units;
+      total += item.price * item.units;
     }
     this.total = total;
     return total;

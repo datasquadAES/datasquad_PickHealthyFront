@@ -11,6 +11,11 @@ import { UsersService } from 'src/app/services/users/users.service';
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
+  userTypes: any[] = [
+    { name: 'Cliente', code: 1 },
+    { name: 'Restaurante', code: 2 },
+    { name: 'Repartidor', code: 3 },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +30,7 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       nombre1: new FormControl('', Validators.required),
       nombre2: new FormControl(''),
+      userType: new FormControl('', Validators.required),
       apellido1: new FormControl('', Validators.required),
       apellido2: new FormControl(''),
       telefono: new FormControl(''),
@@ -61,7 +67,17 @@ export class SignupComponent implements OnInit {
       this.userServices.createUser(userData).subscribe({
         next: (data) => {
           sessionStorage.setItem('user', JSON.stringify(data));
-          this.router.navigate(['/home']);
+          if (data.id_tipo_usuario === 3) {
+            this.router.navigate(['/dealer']);
+          }
+
+          if (data.id_tipo_usuario === 2) {
+            this.router.navigate(['/restaurant']);
+          }
+
+          if(data.id_tipo_usuario === 1){
+            this.router.navigate(['/home']);
+          }
           this.toastService.show('success', 'Usuario añadido');
         },
         error: (err) => {

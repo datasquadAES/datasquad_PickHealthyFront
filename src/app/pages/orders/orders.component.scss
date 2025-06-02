@@ -3,3 +3,22 @@
   padding: 5%;
   // height: 100dvh;
 }
+
+  #form-order-filters{
+    flex-direction: row;
+    align-items: end;
+  }
+
+@media screen and (max-width: 600px) {
+
+  #form-order-filters{
+    flex-direction: column;
+    align-items: start;
+
+    > * {
+      width: 100%;
+    }
+
+  }
+
+}

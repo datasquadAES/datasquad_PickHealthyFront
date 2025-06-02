@@ -2,22 +2,22 @@
   class="flex flex-column sm:flex-row sm:align-items-start p-2 gap-2"
   [ngClass]="{ 'border-top-1 surface-border': !first }"
 >
-  <div class="md:w-7rem ">
+  <div id="img_cont" class="md:w-7rem ">
     <img
       class="block xl:block mx-auto border border-round w-full"
-      [src]="item.imagen_url"
-      [alt]="item.nombre"
+      [src]="item.image_url"
+      [alt]="item.name"
     />
   </div>
   <div
     class="flex flex-column justify-content-between align-items-between flex-1 h-full"
   >
     <div class="text-lg font-medium text-900 mt-2">
-      {{ item.nombre }}
+      {{ item.name }}
     </div>
     <div class="flex flex-row md:align-items-end justify-content-between gap-5">
       <span class="text-xl font-semibold text-900">{{
-        "$" + item.precio
+        "$" + item.price
       }}</span>
       <span class="text-900">{{ "x" + item.units }}</span>
       <!-- <div class="flex flex-row-reverse md:flex-row gap-2">
