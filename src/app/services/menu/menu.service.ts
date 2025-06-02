@@ -8,9 +8,7 @@ import { Product } from 'src/app/models/product.model';
   providedIn: 'root',
 })
 export class MenuService {
-  private BASE_URL = environment.apiUrl + '/menu';
-  private BASE_DUMMY_URL =
-    'http://127.0.0.1:5500/src/app/database/products.html';
+  private BASE_URL = environment.gatewayUrl + 'products';
 
   constructor(private http: HttpClient) {}
 

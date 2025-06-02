@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://yummiback-5ea8271858ed.herokuapp.com/api',
+  gatewayUrl: 'https://ph-api-gateway-ms-4ddc08a2b8f7.herokuapp.com/api/',
+  legacyUrl: 'https://ph-queue-bd-14e1e842c24b.herokuapp.com/api/',
   debugMode: true,
 };

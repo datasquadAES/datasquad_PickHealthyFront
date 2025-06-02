@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -12,8 +12,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UsersComponent } from './pages/users/users.component';
 import { TableComponent } from './components/skeletons/table/table.component';
-import { MenuListComponent } from "./components/menu/menu-list/menu-list.component";
-import { CartSidebarComponent } from "./components/sidebar/cart-sidebar/cart-sidebar.component";
+import { MenuListComponent } from './components/menu/menu-list/menu-list.component';
+import { CartSidebarComponent } from './components/sidebar/cart-sidebar/cart-sidebar.component';
 import { CartItemComponent } from './components/sidebar/cart-item/cart-item.component';
 import { HomeRestaurantComponent } from './pages/home-restaurant/home-restaurant.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -51,6 +51,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
 import { ListboxModule } from 'primeng/listbox';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import { ListboxModule } from 'primeng/listbox';
     CartItemComponent,
     OrdersComponent,
     HomeDealerComponent,
-    HomeRestaurantComponent
+    HomeRestaurantComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,13 +104,17 @@ import { ListboxModule } from 'primeng/listbox';
     ToolbarModule,
     DividerModule,
     DialogModule,
-    ListboxModule
-],
+    ListboxModule,
+  ],
   providers: [
     MessageService,
     provideAnimationsAsync(),
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

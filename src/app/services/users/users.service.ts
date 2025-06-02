@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 export class UsersService {
 
   BASE_URL = environment.apiUrl + '/usuarios';
+  LEGACY_LOGIN_URL = environment.legacyUrl + '/usuarios';
 
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
@@ -29,7 +30,7 @@ export class UsersService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${this.BASE_URL}/login`, { username: username, password: password })
+    return this.http.post<any>(`${this.LEGACY_LOGIN_URL}/login`, { username: username, password: password })
       .pipe(
         (user: any) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -55,7 +56,7 @@ export class UsersService {
   }
 
   getUserByCredentials(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}/login`, { username: username, password: password });
+    return this.http.post<any>(`${this.LEGACY_LOGIN_URL}/login`, { username: username, password: password });
   }
 
   createUser(user: any){

@@ -23,6 +23,7 @@ export class AuthService {
       return firstValueFrom(
         this.usersService.getUserByCredentials(username, password).pipe(
           map((user: any) => {
+            user = {...user, secret: 'eyJhbGciOiJIUzI1NiJ9.e30.DXxIeFW2q8YxQCCDJoI1B0E9QaAAzeVVhDGwjbXFJgo' }
             // Si el usuario existe y no está bloqueado
             sessionStorage.setItem('user', JSON.stringify(user));
             this.isAuthenticated = true;
