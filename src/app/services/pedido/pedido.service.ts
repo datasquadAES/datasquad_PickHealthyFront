@@ -9,7 +9,7 @@ import { CreateOrderDto } from 'src/app/models/dto/createOrder.dto';
 })
 export class PedidoService {
 
-  private BASE_URL = environment.gatewayUrl + '/orders';
+  private BASE_URL = environment.gatewayUrl + 'orders';
 
   constructor(private http: HttpClient) { }
 
